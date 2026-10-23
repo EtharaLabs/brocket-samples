@@ -60,14 +60,29 @@ Each bundle directory is a complete Harbor task: `task.toml` is the runner manif
 ## Cite
 
 ```bibtex
-@misc{brocketsamples,
-  title = {brocket: samples}
+@misc{brocket2026,
+  title        = {brocket: adversarial terminal tasks at the edge of frontier capability},
+  author       = {Ethara AI},
+  year         = {2026},
+  howpublished = {\url{https://github.com/EtharaOrion/brocket}}
+}
+```
+
+The reference frontier this project is built against is cited separately.
+
+```bibtex
+@misc{edgebench2026,
+  title         = {EdgeBench: Unveiling Scaling Laws of Learning from Real-World Tasks},
+  year          = {2026},
+  eprint        = {2607.05155},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL}
 }
 ```
 
 ## License
 
-See the license of the repository that publishes this lane.
+The repository is licensed under the terms in [LICENSE](LICENSE). The twelve touchstones in [touchstones/](touchstones/) are EdgeBench public task definitions, redistributed under the CC-BY-4.0 license of the EdgeBench dataset, and the vendored [harness/](harness/) extension carries the Apache-2.0 license of its upstream.
 
 ## Contact
 
