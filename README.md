@@ -2,9 +2,9 @@
 
 # brocket: samples
 
-<p align="center"><b>The samples lane: 0 of 30 Harbor task bundles.</b></p>
+<p align="center"><b>The samples lane: 3 of 30 Harbor task bundles.</b></p>
 
-<p align="center"><a href="#summary"><img src="https://img.shields.io/badge/bundles-0_of_30-845EF7" alt="bundles: 0 of 30"></a> <a href="#evidence-status"><img src="https://img.shields.io/badge/sealed-0-845EF7" alt="sealed: 0"></a> <a href="#difficulty-tiers"><img src="https://img.shields.io/badge/difficulty-measured-845EF7" alt="difficulty: measured"></a></p>
+<p align="center"><a href="#summary"><img src="https://img.shields.io/badge/bundles-3_of_30-845EF7" alt="bundles: 3 of 30"></a> <a href="#evidence-status"><img src="https://img.shields.io/badge/sealed-0-845EF7" alt="sealed: 0"></a> <a href="#difficulty-tiers"><img src="https://img.shields.io/badge/difficulty-measured-845EF7" alt="difficulty: measured"></a></p>
 
 <p align="center"><sub><a href="#abstract">Abstract</a> | <a href="#summary">Summary</a> | <a href="#difficulty-tiers">Difficulty tiers</a> | <a href="#evidence-status">Evidence status</a> | <a href="#coverage">Coverage</a> | <a href="#dataset-structure">Dataset structure</a> | <a href="#verification-and-quality-assurance">Verification and quality assurance</a> | <a href="#reproduction">Reproduction</a> | <a href="#cite">Cite</a> | <a href="#license">License</a> | <a href="#contact">Contact</a></sub></p>
 
@@ -18,11 +18,11 @@ Each bundle is one Harbor task in a directory named by its content-derived uuid5
 
 | Property | Value |
 | --- | --- |
-| Bundles | 0 of 30 |
-| Sealed | 0 of 0 |
-| Registrations | none |
-| Audit verdicts | none |
-| Harbor schema | none |
+| Bundles | 3 of 30 |
+| Sealed | 0 of 3 |
+| Registrations | unregistered (3) |
+| Audit verdicts | none (3) |
+| Harbor schema | 1.4 (3) |
 
 ## Difficulty tiers
 
@@ -32,19 +32,63 @@ Difficulty is measured by the signed pilot alone and never declared in a bundle,
 
 The verdict is the audit outcome recorded at the sealed digest, and `none` means no verdict has landed for that digest yet. Only an authoring run removes a bundle from this lane, so removal waits for the next one.
 
+| uuid | Verdict | Sealed digest | Stream |
+| --- | --- | --- | --- |
+| 62b54382-a910-5b29-ad0e-1efa993cc615 | none | absent | none |
+| f5e2f024-213f-58cf-aa21-594a53624a8b | none | absent | none |
+| f6424bd2-3d99-5647-9f59-6323ace5d907 | none | absent | none |
+
 ## Coverage
 
-No resident bundle declares a keyword.
+| Keyword | Bundles |
+| --- | --- |
+| arm64-native | 1 |
+| bounded-continuous | 1 |
+| combinatorial-optimization | 1 |
+| edgebench | 1 |
+| ffmpeg-swscale | 1 |
+| image-scaling | 1 |
+| libpcap-1.10.6 | 1 |
+| mephisto | 1 |
+| optimization | 1 |
+| packet-filter-compiler-codegen | 1 |
+| pixel-format-conversion | 1 |
+| reimplementation-fidelity | 1 |
+| rust | 1 |
+| simd | 1 |
+| systems-and-se | 1 |
+| systems-software-engineering | 1 |
 
 ## Dataset structure
 
-No bundle is resident under `samples/`.
+| Bundle | Task | Keywords | Registration | Sealed at | Tier |
+| --- | --- | --- | --- | --- | --- |
+| [`62b54382-a910-5b29-ad0e-1efa993cc615`](62b54382-a910-5b29-ad0e-1efa993cc615/) | `edgebench/libpcap_bpf_codegen_fidelity` | bounded-continuous, libpcap-1.10.6, optimization, packet-filter-compiler-codegen, reimplementation-fidelity, systems-and-se | unregistered | unsealed | - |
+| [`f5e2f024-213f-58cf-aa21-594a53624a8b`](f5e2f024-213f-58cf-aa21-594a53624a8b/) | `edgebench/p6zeta_zero_one_ip_solver_from_scratch` | combinatorial-optimization, edgebench, mephisto | unregistered | unsealed | - |
+| [`f6424bd2-3d99-5647-9f59-6323ace5d907`](f6424bd2-3d99-5647-9f59-6323ace5d907/) | `edgebench/ffmpeg_swscale_reimplementation` | arm64-native, ffmpeg-swscale, image-scaling, pixel-format-conversion, rust, simd, systems-software-engineering | unregistered | unsealed | - |
+
+```mermaid
+%%{init: {"theme":"base","themeVariables":{"primaryColor":"#131a33","primaryTextColor":"#e8ecff","primaryBorderColor":"#845EF7","lineColor":"#22d3ee","fontFamily":"monospace"}}}%%
+flowchart LR
+    bundle["&lt;uuid&gt;/"]
+    bundle --> n0["task.toml<br/>runner manifest"]
+    bundle --> n1["instruction.md<br/>objective the agent reads"]
+    bundle --> n2["environment/<br/>agent sandbox image"]
+    bundle --> n3["tests/<br/>verifier, hidden from the agent"]
+    bundle --> n4["solution/<br/>private oracle"]
+    bundle --> n5["README.md"]
+    bundle --> n6["inspect.html"]
+    bundle --> n7["inspector.html"]
+    bundle --> n8["plots/"]
+    bundle --> n9["trajectories/"]
+    bundle --> n10["trajectory/"]
+```
 
 ```mermaid
 %%{init: {"theme":"base","themeVariables":{"primaryColor":"#131a33","primaryTextColor":"#e8ecff","primaryBorderColor":"#845EF7","lineColor":"#22d3ee","fontFamily":"monospace"}}}%%
 flowchart LR
     staging["staging/"]
-    staging --> samples["samples/<br/>0 of 30"]
+    staging --> samples["samples/<br/>3 of 30"]
     samples --> delivery["delivery/<br/>0 of 10000"]
     delivery --> stock["stock/<br/>0 of 10000"]
 ```
