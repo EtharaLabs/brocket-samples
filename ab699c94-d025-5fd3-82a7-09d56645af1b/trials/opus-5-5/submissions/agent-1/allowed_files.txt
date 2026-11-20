@@ -1,0 +1,13 @@
+tester/corpus/a_candpref.txt
+tester/corpus/b_closure_method.txt
+tester/corpus/c_opaque.txt
+tester/corpus/d_norm.txt
+tester/corpus/e_coh_dyn.txt
+tester/corpus/f_builtin.txt
+tester/corpus/g_misc.txt
+tester/tools/devcheck.py
+tester/run
+tester/common.py
+tester/devinfo.json
+tester/main.py
+tester/gen.py

@@ -1,0 +1,9 @@
+2026-11-20 05:38:16,743 - INFO - Judge container started: f80ce33510b61b45ca5ffd9deef81934757b7979e4ae85f1eeb044e0bc2f4691
+2026-11-20 05:38:16,744 - INFO - Archive saved (7953042 bytes)
+2026-11-20 05:38:17,214 - INFO - Archive extracted: 2888 file(s) allowed, 0 rejected
+2026-11-20 05:38:17,236 - INFO - Running eval script...
+2026-11-20 05:40:05,291 - INFO - Test runtime: 108.06s, timed_out: False
+2026-11-20 05:40:05,292 - INFO - Result: 79/99 passed (pass_rate=79.80%)
+2026-11-20 05:40:05,292 - INFO - Stopping container edgebench.judge.rustc_mir_bce_v1120.192cd746d736...
+2026-11-20 05:40:06,004 - INFO - Removing container edgebench.judge.rustc_mir_bce_v1120.192cd746d736...
+2026-11-20 05:40:06,712 - INFO - Container edgebench.judge.rustc_mir_bce_v1120.192cd746d736 removed.

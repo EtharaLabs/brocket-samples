@@ -1,0 +1,138 @@
+#!/usr/bin/env python3
+"""Reference differential tester: typescript@6.0.3 against one Go-native checker build.
+
+It walks structural families of small programs, each family built around one checker behaviour a
+port has to reproduce exactly. Every program is checked under both checkers; a family reports at
+most its first program that splits them, labelled with the family's name, so the report stays short
+and every witness is one the tester observed itself.
+"""
+
+from __future__ import annotations
+
+import argparse
+import concurrent.futures
+import json
+import random
+import re
+import subprocess
+import tempfile
+import time
+from pathlib import Path
+
+ARGV = ["--noEmit", "--strict", "--target", "es2022", "--module", "esnext",
+        "--moduleResolution", "bundler", "main.ts"]
+CRASH = re.compile(
+    r"^(panic:|fatal error:|runtime: goroutine)|throw e;|Debug Failure|"
+    r"RangeError: Maximum call stack|^\s+at .+\.js:\d+", re.M)
+TIMEOUT = 60
+
+
+def classify(tool: str, source: str) -> str:
+    with tempfile.TemporaryDirectory() as scratch:
+        Path(scratch, "main.ts").write_text(source, encoding="utf-8")
+        try:
+            done = subprocess.run([tool, *ARGV], cwd=scratch, capture_output=True, text=True,
+                                  timeout=TIMEOUT, errors="replace")
+        except subprocess.TimeoutExpired:
+            return "hang"
+    out = done.stdout + done.stderr
+    if CRASH.search(out):
+        return "crash"
+    if done.returncode == 0:
+        return "accept"
+    return "reject" if re.search(r"error TS\d+", out) else "crash"
+
+
+def families(rng: random.Random) -> list[tuple[str, list[str]]]:
+    a, b = rng.choice([("a", "b"), ("x", "y"), ("left", "right")])
+    return [
+        ("for-of over a union with a non-iterable member", [
+            f"type A = {{ {a}: string }}\ntype B = {{ {b}: string }}\ndeclare const data: A[] | B\n"
+            f"for (const item of data as A[]) {{\n  item.{a}\n}}\nexport {{}}\n",
+            f"type A = {{ {a}: string }}\ntype B = {{ {b}: string }}\ndeclare const data: A[] | B\n"
+            f"// @ts-ignore\nfor (const item of data) {{\n  item.{b}\n}}\nexport {{}}\n",
+        ]),
+        ("accessor and property merged across interface declarations", [
+            "interface Foo {\n    tableName: string;\n}\ninterface Foo {\n    tableName: string;\n}\nexport {};\n",
+            "interface Foo {\n    get tableName(): string;\n    set tableName(name: string);\n}\n"
+            "interface Foo {\n    tableName: string;\n}\nexport {};\n",
+        ]),
+        ("inference from never into a union target", [
+            "declare function f<const T extends string = string>(opts: { from?: T }): T;\n"
+            "export const r = f({ from: \"x\" });\n",
+            "type Paths<T> = unknown extends T ? string : string;\ndeclare function f<\n"
+            "    R extends { p: any },\n    const T extends string = string,\n>(opts: {\n"
+            "    from?: (T & Paths<R[\"p\"]>) | Paths<R[\"p\"]>;\n"
+            "    via: string extends T ? \"wide\" : \"narrow\";\n}): void;\n"
+            "f({ from: \"x\" as never, via: \"narrow\" });\nexport {};\n",
+        ]),
+        ("using as an identifier before a line terminator", [
+            "declare let using: any;\nusing;\nexport {};\n",
+            "declare let using: any, identifier: any;\nusing\nidentifier;\nexport {};\n",
+        ]),
+        ("enum members with NaN values", [
+            "enum E {\n  A = 0,\n  B = 0,\n}\nexport const a: E.A = E.B;\n",
+            "enum E {\n  A = NaN,\n  B = NaN,\n}\nexport const a: E.A = E.B;\n",
+        ]),
+        ("narrowing through element access in a loop body", [
+            "export function repro(board: number[][], pos: number | undefined): void {\n"
+            "  if (!pos) return;\n  for (const pattern of [{ target: [-1, -1], intermediate: [-1, 0] }]) {\n"
+            "    const targetR = pos + pattern.target[0];\n    const targetC = pos + pattern.target[1];\n"
+            "    if (board[targetR][targetC] !== 0) {}\n    const [ir, ic] = pattern.intermediate;\n"
+            "    const midC = ic;\n    if (board[ir][midC] === 0) {\n    }\n  }\n}\n",
+        ]),
+        ("keyof of a generic mapped type with a filtering as clause", [
+            "type ChildPaths<T> = [PathTuples<T>] extends [never] ? [] : PathTuples<T>;\n"
+            "type PathTuples<T> = T extends object\n  ? {\n"
+            "      [K in keyof T & string as K extends '_key' ? never : K]: [PathTuples<T[K]>] extends [never]\n"
+            "        ? never\n        : readonly [K, ...ChildPaths<T[K]>];\n"
+            "    }[Exclude<keyof T & string, '_key'>]\n  : [];\n"
+            "type T1 = PathTuples<{ a: string; _key: string; b: { c: number } }>;\n"
+            "export const t1: T1 = ['b', 'c'];\n",
+        ]),
+        ("keyof of a generic mapped type with a renaming as clause", [
+            "type M2<T> = { [K in keyof T & string as [K] extends ['a'] ? 'x' : 'y']: 1 };\n"
+            "export function bare<T>(k: keyof M2<T>): 'x' | 'y' { return k; }\n",
+        ]),
+        ("overload resolution with generic callbacks", [
+            "declare function g(x: string): 1;\ndeclare function g<T>(x: T[]): 2;\n"
+            "export const v: 2 = g([1, 2]);\n",
+        ]),
+        ("template literal inference", [
+            "type H<S> = S extends `${infer A}-${infer B}` ? [A, B] : never;\n"
+            "export const h: H<'ab-cd'> = ['ab', 'cd'];\n",
+        ]),
+    ]
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--toolchain", required=True)
+    parser.add_argument("--budget", type=int, required=True)
+    parser.add_argument("--seed", type=int, required=True)
+    parser.add_argument("--out", required=True)
+    args = parser.parse_args()
+    deadline = time.monotonic() + args.budget * 0.8
+    old_tool = "/opt/ts/tsc6/bin/tsc"
+    new_tool = f"/opt/ts/{args.toolchain}/bin/tsc"
+    walk = families(random.Random(args.seed))
+
+    def walk_family(item: tuple[int, tuple[str, list[str]]]) -> dict | None:
+        index, (label, programs) = item
+        for number, source in enumerate(programs):
+            if time.monotonic() > deadline:
+                return None
+            old, new = classify(old_tool, source), classify(new_tool, source)
+            if old != new:
+                return {"id": f"f{index}-p{number}", "source": source, "old": old, "new": new,
+                        "mechanism": label}
+        return None
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+        found = [w for w in pool.map(walk_family, enumerate(walk)) if w]
+    Path(args.out).write_text(json.dumps({"witnesses": found}, indent=1) + "\n", encoding="utf-8")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

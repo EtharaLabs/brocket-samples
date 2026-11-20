@@ -1,0 +1,148 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import concurrent.futures
+import itertools
+import json
+import os
+import subprocess
+import sys
+import tempfile
+import time
+from pathlib import Path
+
+sys.dont_write_bytecode = True
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+import generate
+
+MODES = ("no", "globally")
+WITNESS_CAP = 200
+REPORT_CAP = 3
+CONTROL_TOOLCHAINS = 6
+EDITION = "2021"
+
+
+def outcome(toolchain: str, source: str, mode: str, timeout: int) -> str:
+    with tempfile.TemporaryDirectory() as scratch:
+        path = Path(scratch) / "p.rs"
+        path.write_text(source, encoding="utf-8")
+        argv = [
+            "rustc", f"+{toolchain}", "--edition", EDITION, "--crate-type", "lib",
+            "--emit=metadata", "-o", f"{scratch}/o.rmeta", f"-Znext-solver={mode}",
+            "-Awarnings", str(path),
+        ]
+        try:
+            done = subprocess.run(
+                argv, capture_output=True, text=True, timeout=timeout,
+                env={**os.environ, "RUST_BACKTRACE": "0"},
+            )
+        except subprocess.TimeoutExpired:
+            return "hang"
+    return {0: "accept", 1: "reject", 101: "ice"}.get(done.returncode, "ice")
+
+
+def pair(toolchain: str, source: str, timeout: int) -> tuple[str, str]:
+    return (
+        outcome(toolchain, source, "no", timeout),
+        outcome(toolchain, source, "globally", timeout),
+    )
+
+
+def interleave(rows: list[tuple[str, str, str]]) -> list[tuple[str, str, str]]:
+    buckets: dict[str, list[tuple[str, str, str]]] = {}
+    for row in rows:
+        buckets.setdefault(row[0], []).append(row)
+    ordered = []
+    for group in itertools.zip_longest(*buckets.values()):
+        ordered.extend(item for item in group if item is not None)
+    return ordered
+
+
+def controls(toolchain: str, limit: int = 2) -> list[str]:
+    try:
+        done = subprocess.run(["rustup", "toolchain", "list"], capture_output=True,
+                              text=True, timeout=60)
+    except (OSError, subprocess.TimeoutExpired):
+        return []
+    names = [line.split()[0] for line in done.stdout.splitlines() if line.strip()]
+    others = [n for n in names if not n.startswith(toolchain)]
+    if len(others) <= limit:
+        return others
+    step = len(others) / limit
+    return [others[int(i * step)] for i in range(limit)]
+
+
+def select(found: list[dict], toolchain: str, timeout: int, jobs: int) -> list[dict]:
+    if not found:
+        return []
+    others = controls(toolchain, limit=CONTROL_TOOLCHAINS)
+    if others:
+        def agreements(item: dict) -> int:
+            return sum(1 for other in others
+                       if (lambda p: p[0] == p[1])(pair(other, item["source"], timeout)))
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=jobs) as pool:
+            scored = list(zip(found, pool.map(agreements, found)))
+        strong = [(item, n) for item, n in scored if n > 0]
+        if strong:
+            by_family: dict[str, list[tuple[dict, int]]] = {}
+            for item, n in strong:
+                by_family.setdefault(str(item["mechanism"]), []).append((item, n))
+            chosen = max(by_family.values(), key=lambda rows: max(n for _, n in rows))
+            ranked = [item for item, _ in sorted(chosen, key=lambda r: -r[1])]
+            ranked.sort(key=lambda w: len(w["source"].encode("utf-8")))
+            return ranked[:REPORT_CAP]
+    by_name: dict[str, list[dict]] = {}
+    for item in found:
+        by_name.setdefault(str(item["mechanism"]), []).append(item)
+    fallback = max(by_name.values(), key=len)
+    fallback.sort(key=lambda w: len(w["source"].encode("utf-8")))
+    return fallback[:REPORT_CAP]
+
+
+def main(argv: list[str]) -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--toolchain", required=True)
+    parser.add_argument("--budget", type=float, default=300.0)
+    parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--out", required=True)
+    parser.add_argument("--jobs", type=int, default=os.cpu_count() or 4)
+    # Matches COMPILE_TIMEOUT in tests/grader/grade.py. A witness is credited only if the
+    # grader reproduces it, and `hang` is itself a graded outcome class, so a tester that gives
+    # up at 30s while the grader waits 60s reports a hang the grader then calls unreproducible.
+    parser.add_argument("--timeout", type=int, default=60)
+    args = parser.parse_args(argv[1:])
+
+    deadline = time.time() + args.budget * 0.85
+    candidates = interleave(list(generate.programs()))
+    witnesses: list[dict[str, object]] = []
+
+    def judge(item: tuple[str, str, str]) -> dict[str, object] | None:
+        family, ident, source = item
+        if time.time() > deadline:
+            return None
+        old, new = pair(args.toolchain, source, args.timeout)
+        if old == new:
+            return None
+        again = pair(args.toolchain, source, args.timeout)
+        if again != (old, new):
+            return None
+        return {"id": ident, "source": source, "edition": EDITION,
+                "old": old, "next": new, "mechanism": family}
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=args.jobs) as pool:
+        for found in pool.map(judge, candidates):
+            if found is not None:
+                witnesses.append(found)
+
+    Path(args.out).write_text(
+        json.dumps({"witnesses": select(witnesses, args.toolchain, args.timeout, args.jobs)}, indent=1) + "\n", encoding="utf-8"
+    )
+    print(json.dumps({"toolchain": args.toolchain, "witnesses": len(witnesses[:WITNESS_CAP])}))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv))

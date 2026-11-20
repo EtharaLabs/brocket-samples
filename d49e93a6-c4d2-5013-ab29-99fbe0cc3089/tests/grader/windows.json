@@ -1,0 +1,9 @@
+[
+ {"id": "W1", "pre": "tsgo-20260423.1", "post": "tsgo-20260424.1", "mechanism": "error propagation through non-iterable unions in for-of", "fix": "microsoft/typescript-go#3496 911ba0b2c6be4d7389ed798314f26d17ca963546"},
+ {"id": "W2", "pre": "tsgo-20260430.1", "post": "tsgo-20260501.1", "mechanism": "accessor and property duplicate-declaration check across merged interfaces", "fix": "microsoft/typescript-go#3672 25963e42b8a5d7da694c6ee555fed3cc93de1e71"},
+ {"id": "W3", "pre": "tsgo-20260505.1", "post": "tsgo-20260506.1", "mechanism": "inference from never into union targets", "fix": "microsoft/typescript-go#3695 ee4225a856389fc94c8ce4a5fd9af771dbbc2c0b"},
+ {"id": "W4", "pre": "tsgo-20260515.1", "post": "tsgo-20260516.1", "mechanism": "using followed by a line terminator parsed as a declaration", "fix": "microsoft/typescript-go#3869 e5a356e25b3d96c3acdcb5a70b848ce5fe464f32"},
+ {"id": "W5", "pre": "tsgo-20260518.1", "post": "tsgo-20260519.1", "mechanism": "NaN-valued enum members receiving distinct literal types", "fix": "microsoft/typescript-go#3932 b463318a6ec71edaaab2b4405a62a269b8ed37d7"},
+ {"id": "W6", "pre": "tsgo-20260721.1", "post": "tsgo-20260722.1", "mechanism": "over-eager constructor-reference matching in control-flow narrowing", "fix": "microsoft/typescript-go#4691 dc8e6a82405e7eeeb75981a15acddd8b9ecb41a3"},
+ {"id": "W7", "pre": "tsgo-20261013.1", "post": "tsgo-20261014.1", "mechanism": "keyof simplification for generic mapped types with as clauses", "fix": "microsoft/TypeScript#64772 a0a0ff55cab4a1f81b7123ab219c97a2f1ed703d"}
+]

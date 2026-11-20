@@ -1,0 +1,118 @@
+schema_version = "1.4"
+reward_type = "bounded_continuous"
+
+# Harbor collects this out of the environment before teardown, which is how a separate verifier
+# reads it (harbor/models/task/config.py:731 at the pinned commit). Only the agent's Zig source
+# tree is listed: the verifier rebuilds the binary from it rather than trusting any binary the
+# agent shipped. The grading logs under /logs/verifier are NOT listed, because that path is
+# already a mount of trial_dir/verifier (harbor/models/trial/paths.py), so collecting it would
+# copy host files back onto the host as duplicates of what a reviewer already replays.
+# The exclude list drops only bytes the verifier discards anyway: tests/test.sh removes
+# zig-out/, .zig-cache/ and zig-cache/ before the red-line scan and before the rebuild, so
+# excluding them at collection time cannot move a score and only shrinks the transfer. It
+# mirrors extensions.sforge.submit_exclude below so the bundle carries one list, not two.
+[[artifacts]]
+source = "/home/workspace/zig-port"
+exclude = [".git/", "zig-out/", ".zig-cache/", "zig-cache/", "**/__pycache__/", "**/*.pyc"]
+
+[task]
+name = "ethara/3e527b39-1359-490f-a563-828173c1df53"
+version = "1.0.0"
+description = "Reimplement git v2.56.1 in Zig as a drop-in replacement, graded on git's own test suite."
+authors = [{ name = "piyush.agrawal", email = "piyush.agrawal@ethara.ai" }]
+keywords = ["git", "zig", "reimplementation", "clean-room", "systems", "pytest-free", "upstream-suite"]
+
+[metadata]
+# No difficulty key: difficulty is measured by the signed pilot, never claimed here.
+# null_floor is measured, not assumed: test-lib.sh unconditionally runs `git version` at line
+# 170, `git --exec-path` at line 1432 and `git init` at line 1619 before any case, so a binary
+# answering none of them emits zero TAP lines and scores exactly 0.0 over the frozen manifest.
+# The `git config --global` at line 1635 and the `git var GIT_AUTHOR_IDENT` at line 1848 are NOT
+# part of that floor: the first is conditional on WITH_BREAKING_CHANGES and the second sits in
+# test_lazy_prereq AUTOIDENT, so each runs only when something asks for it.
+null_floor = 0.0
+discrimination_weight = 0.5
+platforms = ["linux/amd64", "linux/arm64"]
+harbor_release = "0.24.0"
+
+[environment]
+# No docker_image: environment/Dockerfile carries the agent sandbox.
+network_mode = "no-network"
+cpus = 8
+memory_mb = 16384
+storage_mb = 40960
+gpus = 0
+# Measured: a no-cache native amd64 build of environment/Dockerfile took 150s on 16 cores
+# (fetch, buildgit with cargo, scaffoldcheck, runtime). buildx emulates the non-native
+# architecture, where the git and cargo compiles dominate, so this allows 12x the native figure.
+build_timeout_sec = 1800.0
+
+[agent]
+network_mode = "no-network"
+user = "1000:1000"
+# timeout_sec is deliberately absent. It is the declared agent budget, and no human grant in
+# requirements/ sets one, so this run binds no value rather than inventing a bound. The coverage
+# gaps budget-ungranted and budget-unanchored name it, and harbor.py check refuses the manifest
+# until the grant lands.
+
+[verifier]
+environment_mode = "separate"
+network_mode = "no-network"
+# Measured on both declared platforms: a full reference pass over all 1059 scripts took 587s on
+# 16-core native linux/amd64 and 814s on 10-core linux/arm64, both reporting 33,503 cases and the
+# same 335 failures over 60 scripts, with zero bails either side. Derived from the slower figure:
+# 4x for an unoptimized candidate is 3256s, the rebuild and red-line scan add about 200s, and the
+# remainder is margin for a slow candidate's tail under the 300s per-script cap. A 3600s budget
+# left only 144s of headroom against the arm64 measurement, so it was widened rather than kept.
+# Widened again to 7200s. A QC run measured the oracle end to end at 870s on a 16-core native
+# linux/arm64 builder over the full graded suite, so 5400s already carried ample headroom for a
+# reference pass; the increase buys room for a slow candidate's tail instead. A kill mid-suite
+# leaves no reward file and errors the trial, so the extra budget converts a timeout into a real
+# partial score and can never lower one.
+timeout_sec = 7200.0
+
+[verifier.environment]
+# No docker_image: tests/Dockerfile builds the verifier image, so the grader bytes reach no registry.
+network_mode = "no-network"
+cpus = 8
+memory_mb = 16384
+storage_mb = 40960
+
+[upstream_provenance]
+origin = "derived"
+provenance_date = "2026-06-24"
+source_kind = "public_repository"
+upstream_benchmark = "EdgeBench (arXiv:2607.05155v1), task git_rewrite_in_zig, dataset ByteDance-Seed/EdgeBench@6cc5a7f1b3288ce52484ad828177b8cc86b05b75"
+license = "CC-BY-4.0 for the upstream benchmark instance; GPL-2.0-only for the git source this task vendors and for the Zig reference derived from it"
+modifications = [
+  "the reference moves from git v2.47.0 to git v2.56.1, so every behavior the nine intervening feature releases changed is graded",
+  "the grader is git's own test suite at the pinned tag, selected mechanically into a frozen case manifest rather than authored",
+  "a graded case is weighted 4x when its script changed between the two tags and 2x when its test body exercises three or more distinct subcommands",
+  "the verifier rebuilds the submission from Zig source in a stage holding no readable git and no prebuilt binary, and audits every program it executes",
+  "the reward is continuous over the frozen manifest and binds no pass threshold",
+  "Harbor's single-step flow exposes no in-run judge feedback, where the upstream harness let an agent query a judge container",
+]
+
+[upstream_provenance.source]
+canonical_repo = "git.kernel.org/pub/scm/git/git.git"
+base_commit = "03b41523c576f26ad34085378717a0c1b287470f"
+event_timestamp = "2026-11-11T00:00:00Z"
+# fork_ancestry_digest is deliberately absent. git/git is not a fork, so no fork-ancestry
+# snapshot exists to digest, and no signed platform attestation binds one. Inventing a value
+# would fabricate the one provenance fact an auditor cannot recompute from committed bytes.
+# The contract records this as attestation-unavailable, capped at HOLD:PILOT_REQUIRED.
+
+# sforge-only; not part of the authored Harbor bundle. The `local` tags mark both images as built
+# from this bundle's own Dockerfiles, work from environment/ and judge from tests/, never pulled.
+[extensions.sforge]
+task_id = "git_v2561_zig_dropin"
+base_image = "cpp"
+platform = "linux/amd64"
+cwd = "/home/workspace"
+work_image_tag = "local"
+judge_image_tag = "local"
+parser = "structured_json"
+selection = "score_first"
+score_direction = "maximize"
+submit_paths = ["zig-port"]
+submit_exclude = [".git/", "zig-out/", ".zig-cache/", "zig-cache/", "**/__pycache__/", "**/*.pyc"]

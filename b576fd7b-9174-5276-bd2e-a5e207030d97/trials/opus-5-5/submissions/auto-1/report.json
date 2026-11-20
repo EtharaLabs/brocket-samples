@@ -1,0 +1,22 @@
+{
+  "task_id": "typescript_checker_differential",
+  "submission_id": "014b85e96d41",
+  "total_tests": 0,
+  "passed": 0,
+  "failed": 0,
+  "errors": 1,
+  "pass_rate": 0,
+  "score": 0,
+  "score_0_100": null,
+  "timed_out": false,
+  "runtime_seconds": 0.13064217567443848,
+  "test_details": [],
+  "valid": false,
+  "summary": "the grader did not complete, so no witness was recomputed and the validity gate is zero",
+  "details": [],
+  "metrics": {
+    "reward": 0,
+    "validity_gate": 0
+  },
+  "submitted_at": 1795113813.674832
+}

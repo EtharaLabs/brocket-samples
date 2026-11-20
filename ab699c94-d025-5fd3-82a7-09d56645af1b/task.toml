@@ -1,0 +1,145 @@
+schema_version = "1.4"
+reward_type = "bounded_continuous"
+
+[task]
+name = "ethara/ab699c94-d025-5fd3-82a7-09d56645af1b"
+version = "1.0.0"
+description = "Build a differential tester between rustc's old and next-generation trait solvers, graded against compilers from before merged upstream fixes."
+authors = [{ name = "piyush.agrawal", email = "piyush.agrawal@ethara.ai" }]
+keywords = ["rust", "rustc", "compiler", "trait-solver", "differential-testing", "fuzzing"]
+
+[metadata]
+category = "programming"
+tags = ["compiler", "rust", "testing"]
+harbor_release = "0.24.0"
+# linux/arm64 is declared on measurement, closing the gap tests/controls/linux-platform-evidence.json
+# left open. That file records the arm64 verifier image failing to build to completion with an
+# input/output error writing a toolchain layer after the host disk was exhausted, which is why
+# W4, W5 and W7 carried no arm64 evidence and W2, W3 and W6 carried only "family present". The
+# image has since been built on a native arm64 host: all thirteen pinned nightlies install for
+# aarch64-unknown-linux-gnu, and the installed commit hashes match the samples recorded in that
+# file (nightly-2026-08-16 resolves to 67854e511).
+#
+# The oracle then ran end to end in that image under the declared 4 CPU / 8192 MiB envelope at
+# the shipped seed 20261109, returning reward 1.0 with validity_gate 1, recall, precision,
+# attribution and minimality each 1.0, 7 of 7 windows caught, 20 witnesses read, 20 credited and
+# 0 unreproducible. Every window splits on aarch64 individually: W1, W2, W3, W4, W6 and W7 with
+# three credited witnesses each and W5 with two. This matches the linux/amd64 result exactly.
+#
+# One architecture-specific hazard remains on record and is already remediated: the
+# nightly-2026-10-01 aarch64-unknown-linux-gnu build dies with SIGSEGV on the cycle programs
+# under both solver modes, confirmed against RUST_MIN_STACK at 16MB, 128MB and 256MB and a 128MB
+# stack ulimit. It does not touch grading, because W1's pre-fix pin is nightly-2026-09-30 and
+# that toolchain is not in the graded set.
+platforms = ["linux/amd64", "linux/arm64"]
+# Measured, not assumed. grade.py pays nothing for an absent or non-executable entry point
+# ("no executable tester at the declared entry point" -> reward 0.0, validity_gate 0), and the
+# naive grammar sampler in tests/controls reaches 0 of 7 windows at 300 s on 8 workers despite
+# sampling 9 to 37 raw splits per window. Both land exactly at zero, so the floor is zero
+# rather than a tolerance above it.
+null_floor = 0.0
+# The least reward a known-wrong submission must give up. Every control authored for this task
+# falls the whole way to zero: the naive baseline catches no window, and a report whose claimed
+# outcomes do not reproduce trips validity_gate to 0 and zeroes the product. A submission that
+# is right but narrow still scores, because recall is a share of seven: one window caught with
+# clean labels and minimal sources pays 1/7. So the band separates a wrong submission from an
+# incomplete one, and 0.5 sits inside it.
+discrimination_weight = 0.5
+
+[agent]
+timeout_sec = 43200.0
+network_mode = "no-network"
+# uid:gid 1000 is the `agent` user environment/Dockerfile creates and gives /app to. Declaring
+# it here runs the solver as that user rather than root and clears `harbor lint --select ALL`'s
+# `root-agent` finding. It is not a confinement: the rustup toolchains under /opt are
+# world-readable, which is all the solver needs to invoke `rustc +dev`.
+user = "1000:1000"
+
+[verifier]
+timeout_sec = 10800.0
+environment_mode = "separate"
+network_mode = "no-network"
+
+# The grader's own envelope. Declared rather than inherited: this image carries 13 nightly
+# toolchains (8.26 GB measured) and grade.py compiles every reported witness four times per
+# window, twice per solver mode on the pre-fix nightly and twice on the post-fix one, so the
+# verifier needs the same CPU and memory as the agent sandbox and more disk than the default.
+# build_timeout_sec covers installing those toolchains from scratch.
+[verifier.environment]
+network_mode = "no-network"
+cpus = 4
+memory_mb = 8192
+storage_mb = 40960
+build_timeout_sec = 3600.0
+
+[environment]
+# workdir is declared so the agent's shell starts where the deliverable lives, and so it agrees
+# with extensions.sforge.cwd below. The two must name the same directory: Harbor reads this one
+# and the brocket launcher reads that one.
+workdir = "/app"
+network_mode = "no-network"
+cpus = 4
+memory_mb = 8192
+storage_mb = 20480
+build_timeout_sec = 3600.0
+
+# The SForge benchmark extension reads this block. base_image is the key BENCHMARK.yaml resolves
+# to a concrete agent image; without it the harness refuses the task before it launches. platform
+# names one architecture because an sforge run selects a single runner, not because the task is
+# single-platform: the reference tester now scores 7 of 7 on linux/arm64 as well, so this value
+# can be switched to linux/arm64 without re-grounding anything. See [metadata].platforms.
+[extensions.sforge]
+work_image_tag = "local"
+judge_image_tag = "local"
+task_id = "rustc_trait_solver_differential"
+base_image = "rust"
+platform = "linux/amd64"
+parser = "structured_json"
+selection = "score_first"
+score_direction = "maximize"
+# cwd must be declared, and must be the directory submit_paths is relative to. Undeclared it
+# defaults to /workspace, which exists in neither image: the launcher's `cd` fails, nothing is
+# collected, and every round scores zero while plain `harbor run` still shows the oracle at 1.0.
+# /app is environment/Dockerfile's WORKDIR and [environment].workdir above, and the deliverable
+# is /app/tester, so the pair below resolves to exactly that tree.
+cwd = "/app"
+submit_paths = ["tester/"]
+submit_exclude = [
+  ".git/",
+  "**/__pycache__/",
+  "**/*.pyc",
+]
+
+# Mirrors extensions.sforge.submit_exclude above so the bundle carries one list, not two, and so
+# the tree Harbor collects is the tree the launcher submits. /logs/verifier is deliberately not
+# listed: it is already a mount of trial_dir/verifier, so declaring it only makes Harbor hunt for
+# the reward file in the agent container.
+[[artifacts]]
+source = "/app/tester"
+exclude = [".git/", "**/__pycache__/", "**/*.pyc"]
+
+# The task is authored here rather than repackaged from another benchmark, so it declares no
+# upstream benchmark and no upstream license. What it does carry is public ground truth: each
+# graded correction window brackets a merged rust-lang/rust pull request, and the nightly pins
+# that bracket it are in tests/grader/windows.json.
+#
+# Contamination note for the offer: the seven graded fixes are public pull requests, several
+# with public regression tests, so a model may have encountered them in training. Catching a
+# window demonstrates that the submitted tester discriminates; it is not evidence that the
+# divergence was discovered independently. The graded set, as recorded in solution/TRUTH.md:
+#   W1 rust-lang/rust#163496   W2 rust-lang/rust#160982   W3 rust-lang/rust#161047
+#   W4 rust-lang/rust#163159   W5 rust-lang/rust#159774   W6 rust-lang/rust#160831
+#   W7 rust-lang/rust#163267
+#
+# provenance_date is deliberately absent: it is not recomputable from the shipped bytes, and a
+# date invented at QC time would fabricate the one provenance fact an auditor cannot recheck.
+# Supply it from the authoring record before delivery.
+[upstream_provenance]
+origin = "original"
+source_kind = "public_repository"
+
+[upstream_provenance.source]
+canonical_repo = "github.com/rust-lang/rust"
+# base_commit, event_timestamp and fork_ancestry_digest are deliberately absent. This task
+# pins toolchains by nightly date rather than by commit, so no single base commit describes
+# the graded set, and rust-lang/rust is not a fork, so no fork-ancestry snapshot exists.

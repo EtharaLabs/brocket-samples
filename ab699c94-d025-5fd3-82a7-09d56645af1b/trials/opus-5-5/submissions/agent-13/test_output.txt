@@ -1,0 +1,119 @@
+>>>>> Start Test Output
++ echo '>>>>> Start Test Output'
++ cd /app
++ mkdir -p /logs/verifier
++ base64 -d
++ echo IyEvYmluL2Jhc2gKIyBWZXJpZmllciBlbnRyeSBwb2ludC4gUnVucyBpbiB0aGUgc2VwYXJhdGUganVkZ2UgaW1hZ2UsIHdoaWNoIGNhcnJpZXMgdGhlIDEzIHBpbm5lZCBuaWdodGxpZXM7CiMgdGhlIHN1Ym1pc3Npb24gYXJyaXZlcyBhcyB0aGUgYWdlbnQncyAvYXBwL3Rlc3RlciB0cmVlLgojCiMgRmFpbHMgY2xvc2VkOiBldmVyeSBleGl0IHBhdGggbGVhdmVzIGEgcmV3YXJkIG9uIGRpc2sgYW5kIGVtaXRzIHRoZSBzdHJ1Y3R1cmVkIGJsb2NrIHRoZQojIGRlY2xhcmVkIHBhcnNlciByZWFkcywgYW5kIGFueSBwYXRoIHRoYXQgY2Fubm90IGVzdGFibGlzaCBhIGxlZ2l0aW1hdGUgc2NvcmUgbGVhdmVzIDAuCnNldCAtdQpta2RpciAtcCAvbG9ncy92ZXJpZmllcgoKUkVXQVJEPS9sb2dzL3ZlcmlmaWVyL3Jld2FyZC5qc29uCgojIFdyaXRlIHRoZSBmbG9vciBiZWZvcmUgYW55IHdvcmssIG5vdCBhZnRlciBpdC4gSGFyYm9yIGtpbGxzIHRoaXMgY29udGFpbmVyIGF0CiMgdmVyaWZpZXIudGltZW91dF9zZWMgZnJvbSBvdXRzaWRlIHRoaXMgc2NyaXB0LCBzbyBhIGZhbGxiYWNrIHRoYXQgb25seSBydW5zIGFmdGVyIHRoZSBncmFkZXIKIyByZXR1cm5zIG5ldmVyIHJ1bnMgYXQgYWxsIG9uIGEgdGltZW91dDogdGhlIHJld2FyZCBmaWxlIGlzIGFic2VudCBhbmQgdGhlIHRyaWFsIHJhaXNlcwojIFJld2FyZEZpbGVOb3RGb3VuZEVycm9yIGluc3RlYWQgb2Ygc2NvcmluZyAwLiBOdW1iZXJzIG9ubHkgLS0gYSAibm90ZSIgc3RyaW5nIGhlcmUgcmFpc2VzCiMgVmVyaWZpZXJPdXRwdXRQYXJzZUVycm9yIGluc3RlYWQgb2Ygc2NvcmluZyAwLgpwcmludGYgJ3sicmV3YXJkIjogMC4wLCAidmFsaWRpdHlfZ2F0ZSI6IDAsICJjYXVnaHQiOiAwfVxuJyA+ICIkUkVXQVJEIgpwcmludGYgJzAuMFxuJyA+IC9sb2dzL3ZlcmlmaWVyL3Jld2FyZC50eHQKIyBUaGUgQ1RSRiBmbG9vciBpcyB3cml0dGVuIGhlcmUgdG9vLCBub3QgYWZ0ZXIgdGhlIGdyYWRlci4gRXZlcnkgZWFybHkgZXhpdCBiZWxvdyBsZWF2ZXMgdGhlCiMgc2NyaXB0IGJlZm9yZSBhbnkgZ3JhZGluZywgYW5kIGEgcGF0aCB0aGF0IHByb2R1Y2VzIG5vIENUUkYgYXQgYWxsIGlzIG5vdCB0aGUgc2FtZSBhcyBvbmUgdGhhdAojIGhvbmVzdGx5IHJlcG9ydHMgemVybyB0ZXN0cyBydW4uIGdyYWRlLnB5IG92ZXJ3cml0ZXMgdGhpcyB3aXRoIHRoZSByZWFsIGNhc2UgbGlzdC4KcHJpbnRmICd7InJlc3VsdHMiOnsidG9vbCI6eyJuYW1lIjoiYnJvY2tldC1zb2x2ZXJkaWZmLWdyYWRlciJ9LCJzdW1tYXJ5Ijp7InRlc3RzIjowLCJwYXNzZWQiOjAsImZhaWxlZCI6MCwicGVuZGluZyI6MCwic2tpcHBlZCI6MCwib3RoZXIiOjB9LCJ0ZXN0cyI6W119fVxuJyBcCiAgPiAvbG9ncy92ZXJpZmllci9jdHJmLmpzb24KCiMgSGFyYm9yIHNjb3JlcyBmcm9tICRSRVdBUkQsIHRoZSBzZm9yZ2Ugc3RydWN0dXJlZF9qc29uIHBhcnNlciBmcm9tIHRoaXMgc3Rkb3V0IGJsb2NrLCBhbmQgdGhlCiMgdHdvIG11c3QgYWdyZWUuIFRoZSB0cmFwIGNvdmVycyBldmVyeSBleGl0LCBpbmNsdWRpbmcgdGhlIGVhcmx5IG9uZXMgYmVsb3csIHNvIHRoZXJlIGlzIGV4YWN0bHkKIyBvbmUgZW1pdHRlciBhbmQgaXQgYWx3YXlzIHJ1bnMuIE5ldmVyIGBleGVjYCB0aGUgZ3JhZGVyOiB0aGF0IHJlcGxhY2VzIHRoaXMgc2hlbGwsIHRoZSB0cmFwCiMgbmV2ZXIgcnVucywgYW5kIGV2ZXJ5IHN1Ym1pc3Npb24gc2NvcmVzIHplcm8gb24gYSBwYXJzZSBtaXNzLgpfX3Nmb3JnZV9lbWl0KCkgewogIGxvY2FsIF9fc2NvcmU9MC4wCiAgaWYgWyAtZiAiJFJFV0FSRCIgXTsgdGhlbgogICAgX19zY29yZT0kKHB5dGhvbjMgLWMgJ2ltcG9ydCBqc29uLHN5cwp0cnk6CiAgICBkID0ganNvbi5sb2FkKG9wZW4oc3lzLmFyZ3ZbMV0pKQogICAgcHJpbnQoZmxvYXQoZC5nZXQoInJld2FyZCIsIGQuZ2V0KCJ0b3RhbCIsIDAuMCkpKSkKZXhjZXB0IEV4Y2VwdGlvbjoKICAgIHByaW50KDAuMCknICIkUkVXQVJEIiAyPi9kZXYvbnVsbCB8fCBlY2hvIDAuMCkKICBmaQogIHByaW50ZiAnPj4+Pj4gU3RhcnQgU3RydWN0dXJlZCBSZXN1bHRcbnsic2NvcmUiOiAlc31cbj4+Pj4+IEVuZCBTdHJ1Y3R1cmVkIFJlc3VsdFxuJyAiJF9fc2NvcmUiCn0KdHJhcCBfX3Nmb3JnZV9lbWl0IEVYSVQKCiMgTG9jYXRlIHRoZSBzdWJtaXR0ZWQgdGVzdGVyLiBVbmRlciB0aGUgYnJvY2tldCBsYXVuY2hlciB0aGUgY29sbGVjdGVkIHRyZWUgbGFuZHMgYmFjayBhdCBpdHMKIyBkZWNsYXJlZCBwYXRoLCBidXQgSGFyYm9yJ3Mgc2VwYXJhdGUtdmVyaWZpZXIgbW9kZSBtaXJyb3JzIGEgY29sbGVjdGVkIGFydGlmYWN0J3MgYWJzb2x1dGUKIyBjb250YWluZXIgcGF0aCB1bmRlciB0aGUgYXJ0aWZhY3RzIG1vdW50LCBzbyAvYXBwL3Rlc3RlciBhbHNvIGFwcGVhcnMgYXMKIyAvbG9ncy9hcnRpZmFjdHMvYXBwL3Rlc3Rlci4gQm90aCBhcmUgdHJpZWQsIHRoZW4gdGhlIHRyZWUgaXMgZGlzY292ZXJlZCBhbnl3aGVyZSB1bmRlciB0aGUKIyBtb3VudCwgc28gYSBsYXlvdXQgY2hhbmdlIGluIHRoZSBoYXJuZXNzIGRlZ3JhZGVzIGludG8gYSBzbG93ZXIgc2VhcmNoIHJhdGhlciB0aGFuIGEgemVybwojIHRoYXQgbG9va3MgbGlrZSBhIGZhaWxlZCBzdWJtaXNzaW9uLgpURVNURVI9IiIKZm9yIGNhbmRpZGF0ZSBpbiAvYXBwL3Rlc3Rlci9ydW4gL2xvZ3MvYXJ0aWZhY3RzL2FwcC90ZXN0ZXIvcnVuIC9sb2dzL2FydGlmYWN0cy90ZXN0ZXIvcnVuIFwKICAgICAgICAgICAgICAgICAvbG9ncy9hcnRpZmFjdHMvd29ya3NwYWNlL3Rlc3Rlci9ydW4gL3dvcmtzcGFjZS90ZXN0ZXIvcnVuOyBkbwogIFsgLWYgIiRjYW5kaWRhdGUiIF0gJiYgeyBURVNURVI9IiRjYW5kaWRhdGUiOyBicmVhazsgfQpkb25lCmlmIFsgLXogIiRURVNURVIiIF0gJiYgWyAtZCAvbG9ncy9hcnRpZmFjdHMgXTsgdGhlbgogIEZPVU5EPSQoZmluZCAvbG9ncy9hcnRpZmFjdHMgLW1heGRlcHRoIDEyIC10eXBlIGYgLXBhdGggJyovdGVzdGVyL3J1bicgLXByaW50IDI+L2Rldi9udWxsIHwgc29ydCB8IGhlYWQgLTEpCiAgWyAtbiAiJEZPVU5EIiBdICYmIFRFU1RFUj0iJEZPVU5EIgpmaQoKaWYgWyAteiAiJFRFU1RFUiIgXTsgdGhlbgogIGVjaG8gInZlcmlmaWVyOiBubyB0ZXN0ZXIvcnVuIGZvdW5kIGF0IHRoZSBkZWNsYXJlZCBlbnRyeSBwb2ludCBvciB1bmRlciAvbG9ncy9hcnRpZmFjdHMiID4mMgogIGV4aXQgMApmaQplY2hvICJ2ZXJpZmllcjogZ3JhZGluZyB0aGUgdGVzdGVyIGF0ICRURVNURVIiID4mMgoKIyBncmFkZS5weSByZXF1aXJlcyB0aGUgZXhlY3V0YWJsZSBiaXQsIGFuZCBhcnRpZmFjdCBjb2xsZWN0aW9uIGRvZXMgbm90IGFsd2F5cyBwcmVzZXJ2ZSBtb2Rlcy4KIyBBIHN1Ym1pc3Npb24gdGhhdCBpcyBleGVjdXRhYmxlIGluIHRoZSBhZ2VudCdzIHNhbmRib3ggbXVzdCBub3Qgc2NvcmUgemVybyBmb3IgYSByZWFzb24gdGhhdAojIGlzIG5vdCBhYm91dCBpdHMgYmVoYXZpb3VyLgpjaG1vZCAreCAiJFRFU1RFUiIgMj4vZGV2L251bGwgfHwgdHJ1ZQoKIyBUaGUgZ3JhZGVyIHdyaXRlcyB0byBhIHNjcmF0Y2ggcGF0aCBhbmQgaXMgcHJvbW90ZWQgb25seSBvbmNlIGl0IHBhcnNlcy4gV3JpdGluZyBzdHJhaWdodCB0bwojIHJld2FyZC5qc29uIHdvdWxkIGxldCBhIGhhbGYtd3JpdHRlbiBmaWxlIHN1cnZpdmUgYSBtaWQtd3JpdGUgZGVhdGgsIGFuZCBhIHRydW5jYXRlZC1idXQtCiMgbm9uLWVtcHR5IGZpbGUgcmVhZHMgYXMgVmVyaWZpZXJPdXRwdXRQYXJzZUVycm9yIHJhdGhlciB0aGFuIGFzIHRoZSB6ZXJvIGl0IHNob3VsZCBiZS4KIyByZXBvcnQuanNvbiwgcmV3YXJkLnR4dCBhbmQgY3RyZi5qc29uIHJlc29sdmUgZnJvbSBkaXJuYW1lKC0tb3V0KSwgd2hpY2ggaXMgdW5jaGFuZ2VkLgpncmFkZWQ9MApweXRob24zIC90ZXN0cy9ncmFkZXIvZ3JhZGUucHkgXAogIC0tdGVzdGVyICIkVEVTVEVSIiBcCiAgLS1idWRnZXQgMzAwIFwKICAtLXNlZWQgMjAyNjExMDkgXAogIC0tam9icyA0IFwKICAtLW91dCAiJFJFV0FSRC5wYXJ0IiAmJiBncmFkZWQ9MQoKaWYgWyAiJGdyYWRlZCIgLWVxIDEgXSBcCiAgICYmIHB5dGhvbjMgLWMgJ2ltcG9ydCBqc29uLHN5czsganNvbi5sb2FkKG9wZW4oc3lzLmFyZ3ZbMV0pKScgIiRSRVdBUkQucGFydCIgMj4vZGV2L251bGw7IHRoZW4KICBtdiAiJFJFV0FSRC5wYXJ0IiAiJFJFV0FSRCIKZWxzZQogIHJtIC1mICIkUkVXQVJELnBhcnQiCmZpCg==
++ chmod +x /tmp/harbor_test.sh
++ bash /tmp/harbor_test.sh
+verifier: grading the tester at /app/tester/run
+{
+ "reward": 0.142857,
+ "validity_gate": 1,
+ "caught": 1,
+ "graded": 7,
+ "recall": 0.142857,
+ "precision": 1.0,
+ "attribution": 1.0,
+ "minimality": 1.0,
+ "mechanisms": [
+  "inductive-vs-coinductive-cycle"
+ ],
+ "witnesses_read": 17,
+ "witness_allowance": 3,
+ "credited": 1,
+ "unreproducible": 0,
+ "windows": [
+  {
+   "window": "W1",
+   "ran": "ok",
+   "witnesses": 2,
+   "unreproducible": 0,
+   "background": 1,
+   "credited": 1,
+   "minimal": 1,
+   "precision": 1.0,
+   "caught": true
+  },
+  {
+   "window": "W2",
+   "ran": "ok",
+   "witnesses": 3,
+   "unreproducible": 0,
+   "background": 3,
+   "credited": 0,
+   "minimal": 0,
+   "precision": 1.0,
+   "caught": false
+  },
+  {
+   "window": "W3",
+   "ran": "ok",
+   "witnesses": 3,
+   "unreproducible": 0,
+   "background": 3,
+   "credited": 0,
+   "minimal": 0,
+   "precision": 1.0,
+   "caught": false
+  },
+  {
+   "window": "W4",
+   "ran": "ok",
+   "witnesses": 3,
+   "unreproducible": 0,
+   "background": 3,
+   "credited": 0,
+   "minimal": 0,
+   "precision": 1.0,
+   "caught": false
+  },
+  {
+   "window": "W5",
+   "ran": "ok",
+   "witnesses": 3,
+   "unreproducible": 0,
+   "background": 3,
+   "credited": 0,
+   "minimal": 0,
+   "precision": 1.0,
+   "caught": false
+  },
+  {
+   "window": "W6",
+   "ran": "ok",
+   "witnesses": 3,
+   "unreproducible": 0,
+   "background": 3,
+   "credited": 0,
+   "minimal": 0,
+   "precision": 1.0,
+   "caught": false
+  },
+  {
+   "window": "W7",
+   "ran": "ok",
+   "witnesses": 0,
+   "unreproducible": 0,
+   "background": 0,
+   "credited": 0,
+   "minimal": 0,
+   "precision": 1.0,
+   "caught": false
+  }
+ ]
+}
+>>>>> Start Structured Result
+{"score": 0.142857}
+>>>>> End Structured Result
+++ tr -dc 0-9.-
+++ cat /logs/verifier/reward.txt
+{"score": 0.142857}
+>>>>> End Test Output
+Exit code: 0
++ SCORE=0.142857
++ echo '{"score": 0.142857}'
++ EXIT_CODE=0
++ echo '>>>>> End Test Output'
++ echo 'Exit code: 0'
++ exit 0

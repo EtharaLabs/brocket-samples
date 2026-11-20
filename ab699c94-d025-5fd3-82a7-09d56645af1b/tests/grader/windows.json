@@ -1,0 +1,59 @@
+[
+ {
+  "id": "W1",
+  "pre": "nightly-2026-09-30",
+  "post": "nightly-2026-10-02",
+  "mechanism": "inductive-vs-coinductive-cycle",
+  "fix": "rust-lang/rust#163496",
+  "note": "cycles are coinductive only with a productive step; an auto-trait goal whose proof passes through a projection normalized by a blanket impl",
+  "platform_note": "the nightly-2026-10-01 build segfaults on linux/aarch64 for the programs this window needs, so the pre-fix toolchain is the nearest earlier nightly that still lacks the fix"
+ },
+ {
+  "id": "W2",
+  "pre": "nightly-2026-08-14",
+  "post": "nightly-2026-08-15",
+  "mechanism": "canonicalization-infer-vars",
+  "fix": "rust-lang/rust#160982",
+  "note": "region uniquification during canonicalization makes a provable goal ambiguous"
+ },
+ {
+  "id": "W3",
+  "pre": "nightly-2026-08-15",
+  "post": "nightly-2026-08-16",
+  "mechanism": "assoc-type-normalization-in-cycle",
+  "fix": "rust-lang/rust#161047",
+  "note": "implied bounds read through the hidden type of an opaque return type add an outlives bound the caller never proved"
+ },
+ {
+  "id": "W4",
+  "pre": "nightly-2026-09-22",
+  "post": "nightly-2026-09-24",
+  "mechanism": "assoc-type-normalization-in-cycle",
+  "fix": "rust-lang/rust#163159",
+  "note": "a where-clause binding an associated type to a projection of itself recurses without progress"
+ },
+ {
+  "id": "W5",
+  "pre": "nightly-2026-07-27",
+  "post": "nightly-2026-07-28",
+  "mechanism": "inductive-vs-coinductive-cycle",
+  "fix": "rust-lang/rust#159774",
+  "note": "a no-progress projection cycle reached through a GAT whose parameter cannot be inferred; the old solver hangs"
+ },
+ {
+  "id": "W6",
+  "pre": "nightly-2026-09-10",
+  "post": "nightly-2026-09-11",
+  "mechanism": "higher-ranked-bounds",
+  "fix": "rust-lang/rust#160831",
+  "note": "an associated-type bound on a higher-ranked trait object read at 'static launders a shorter lifetime"
+ },
+ {
+  "id": "W7",
+  "pre": "nightly-2026-10-05",
+  "post": "nightly-2026-10-07",
+  "mechanism": "coherence-negative-reasoning",
+  "fix": "rust-lang/rust#163267",
+  "note": "two impls overlap only if a higher-ranked bound holds, so the leak check during coherence decides the overlap"
+ }
+]

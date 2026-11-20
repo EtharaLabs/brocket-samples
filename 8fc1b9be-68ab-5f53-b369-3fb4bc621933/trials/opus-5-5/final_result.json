@@ -1,0 +1,20 @@
+{
+  "agent": "claude-code",
+  "task": "rustc_mir_bce_v1120",
+  "run_id": "mirbce-12h-v1120",
+  "model": "claude-opus-5-5",
+  "best_pass_rate": 0.8383838383838383,
+  "best_round": "agent-62",
+  "total_rounds": 106,
+  "agent_submissions": 64,
+  "auto_submissions": 42,
+  "timed_out": true,
+  "runtime_seconds": 43200.02320218086,
+  "archive_size_bytes": 7955866,
+  "resume_count": 0,
+  "round_protocol": false,
+  "productive_rounds": 0,
+  "unproductive_rounds": 0,
+  "stalled": false,
+  "best_score": 0.438372
+}

@@ -1,0 +1,101 @@
+{
+  "task_id": "typescript_checker_differential",
+  "submission_id": "b889d42257e0",
+  "total_tests": 9,
+  "passed": 9,
+  "failed": 0,
+  "errors": 0,
+  "pass_rate": 0,
+  "score": 0,
+  "score_0_100": null,
+  "timed_out": false,
+  "runtime_seconds": 1459.9647750854492,
+  "test_details": [],
+  "valid": true,
+  "summary": "reward 0.0000: gate 1, caught 0 of 6, precision 1.0000, attribution 0.0000, minimality 0.0000, completion 1.0000",
+  "details": [
+    {
+      "name": "witnesses_reproduce",
+      "status": "passed",
+      "message": "",
+      "score": 1,
+      "weight": null
+    },
+    {
+      "name": "post_fix_agreement_required",
+      "status": "passed",
+      "message": "",
+      "score": 1,
+      "weight": null
+    },
+    {
+      "name": "witness_cap_enforced",
+      "status": "passed",
+      "message": "",
+      "score": 1,
+      "weight": null
+    },
+    {
+      "name": "tester_launched",
+      "status": "passed",
+      "message": "",
+      "score": 1,
+      "weight": null
+    },
+    {
+      "name": "report_readable",
+      "status": "passed",
+      "message": "",
+      "score": 1,
+      "weight": null
+    },
+    {
+      "name": "both_checker_modes_named",
+      "status": "passed",
+      "message": "",
+      "score": 1,
+      "weight": null
+    },
+    {
+      "name": "version_independent",
+      "status": "passed",
+      "message": "",
+      "score": 1,
+      "weight": null
+    },
+    {
+      "name": "no_infrastructure_error",
+      "status": "passed",
+      "message": "",
+      "score": 1,
+      "weight": null
+    },
+    {
+      "name": "outcomes_stable",
+      "status": "passed",
+      "message": "",
+      "score": 1,
+      "weight": null
+    }
+  ],
+  "metrics": {
+    "reward": 0,
+    "validity_gate": 1,
+    "recall": 0,
+    "precision": 1,
+    "attribution": 0,
+    "minimality": 0,
+    "completion": 1,
+    "caught": 0,
+    "graded": 6,
+    "invalid": 0,
+    "fabricated": 0,
+    "malformed": 0,
+    "unstable": 0,
+    "unreadable": 0,
+    "infrastructure_error": 0,
+    "credited": 0,
+    "witnesses_read": 0
+  },
+  "submitted_at": 1795147080.6605005
+}

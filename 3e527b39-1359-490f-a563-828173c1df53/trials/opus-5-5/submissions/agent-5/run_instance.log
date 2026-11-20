@@ -1,0 +1,9 @@
+2026-11-17 21:55:56,516 - INFO - Judge container started: 760389ba25550b3b3755814529ba61221574b698b77428a708d8cb7ae10ea73c
+2026-11-17 21:55:56,516 - INFO - Archive saved (919970 bytes)
+2026-11-17 21:55:56,776 - INFO - Archive extracted: 136 file(s) allowed, 0 rejected
+2026-11-17 21:55:56,825 - INFO - Running eval script...
+2026-11-17 22:13:45,933 - INFO - Test runtime: 1069.11s, timed_out: False
+2026-11-17 22:13:45,933 - INFO - Result: 0/0 passed (pass_rate=0.00%)
+2026-11-17 22:13:45,933 - INFO - Stopping container edgebench.judge.git_v2561_zig_dropin.ea98c25d9f67...
+2026-11-17 22:13:47,140 - INFO - Removing container edgebench.judge.git_v2561_zig_dropin.ea98c25d9f67...
+2026-11-17 22:13:48,481 - INFO - Container edgebench.judge.git_v2561_zig_dropin.ea98c25d9f67 removed.

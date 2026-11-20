@@ -1,0 +1,89 @@
+{
+ "windows": [
+  {
+   "window": "W1",
+   "ran": "ok",
+   "witnesses": 8,
+   "credited": [
+    "for-of over a union with a non-iterable member"
+   ],
+   "bad": 0,
+   "background": 7,
+   "caught": true
+  },
+  {
+   "window": "W2",
+   "ran": "ok",
+   "witnesses": 7,
+   "credited": [
+    "accessor and property merged across interface declarations"
+   ],
+   "bad": 0,
+   "background": 6,
+   "caught": true
+  },
+  {
+   "window": "W3",
+   "ran": "ok",
+   "witnesses": 6,
+   "credited": [
+    "inference from never into a union target"
+   ],
+   "bad": 0,
+   "background": 5,
+   "caught": true
+  },
+  {
+   "window": "W4",
+   "ran": "ok",
+   "witnesses": 5,
+   "credited": [
+    "using as an identifier before a line terminator"
+   ],
+   "bad": 0,
+   "background": 4,
+   "caught": true
+  },
+  {
+   "window": "W5",
+   "ran": "ok",
+   "witnesses": 4,
+   "credited": [
+    "enum members with NaN values"
+   ],
+   "bad": 0,
+   "background": 3,
+   "caught": true
+  },
+  {
+   "window": "W6",
+   "ran": "ok",
+   "witnesses": 3,
+   "credited": [
+    "narrowing through element access in a loop body"
+   ],
+   "bad": 0,
+   "background": 2,
+   "caught": true
+  },
+  {
+   "window": "W7",
+   "ran": "ok",
+   "witnesses": 2,
+   "credited": [
+    "keyof of a generic mapped type with a filtering as clause"
+   ],
+   "bad": 0,
+   "background": 1,
+   "caught": true
+  }
+ ],
+ "development": {
+  "ran": "ok",
+  "witnesses": 1,
+  "mechanisms": [
+   "keyof of a generic mapped type with a renaming as clause"
+  ]
+ },
+ "caught": 7
+}

@@ -1,0 +1,20 @@
+{
+  "agent": "claude-code",
+  "task": "typescript_checker_differential",
+  "run_id": "tsdiff-12h-b576",
+  "model": "claude-opus-5-5",
+  "best_pass_rate": 0.16666666666666666,
+  "best_round": "agent-3",
+  "total_rounds": 52,
+  "agent_submissions": 23,
+  "auto_submissions": 29,
+  "timed_out": true,
+  "runtime_seconds": 43200.02174258232,
+  "archive_size_bytes": 64975,
+  "resume_count": 0,
+  "round_protocol": true,
+  "productive_rounds": 1,
+  "unproductive_rounds": 0,
+  "stalled": false,
+  "best_score": 0.16666666666666666
+}

@@ -1,0 +1,19 @@
+{
+  "task_id": "git_v2561_zig_dropin",
+  "submission_id": "678487fa2d0a",
+  "total_tests": 0,
+  "passed": 0,
+  "failed": 0,
+  "errors": 0,
+  "pass_rate": 0.0,
+  "score": 0.5465094860932032,
+  "score_0_100": null,
+  "timed_out": false,
+  "runtime_seconds": 1243.026804447174,
+  "test_details": [],
+  "valid": true,
+  "summary": null,
+  "details": [],
+  "metrics": {},
+  "submitted_at": 1794959698.4714465
+}

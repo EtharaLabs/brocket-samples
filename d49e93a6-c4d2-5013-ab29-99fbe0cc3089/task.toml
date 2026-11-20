@@ -1,0 +1,139 @@
+schema_version = "1.4"
+
+# Vendor field, not a Harbor field. The Smoldata CLI reads it; Harbor 0.25.0 does not model it,
+# so `harbor lint` reports `unknown-config-field` here. That notice is expected and is not a
+# defect: TaskConfig declares no model_config, so pydantic ignores the key and the task validates
+# and runs normally. Do not delete it to quiet the linter -- absent, the reward reverts to binary
+# and every continuous partial score collapses. To get a clean preflight run
+# `harbor lint --ignore unknown-config-field`, which exits 0 on this task.
+reward_type = "bounded_continuous"
+
+[task]
+name = "ethara/d49e93a6-c4d2-5013-ab29-99fbe0cc3089"
+version = "1.0.0"
+description = "Build a differential tester between the TypeScript 6 JavaScript checker and the Go-native TypeScript 7 checker, graded against Go builds from before merged upstream fixes."
+keywords = ["typescript", "typescript-go", "type-checker", "differential-testing", "fuzzing"]
+authors = [{ name = "amishu.negi", email = "amishu.negi@ethara.ai" }]
+
+[metadata]
+category = "programming"
+tags = ["compiler", "typescript", "testing"]
+harbor_release = "0.24.0"
+# Measured, not assumed, and recorded in solution/TRUTH.md: under tests/test.sh the oracle
+# returns reward 1.0 catching 7 of 7 windows, and an empty submission returns 0.0. grade.py pays
+# nothing for an absent or non-executable entry point, and a report whose claimed outcomes do not
+# reproduce is zeroed by the validity gate. Nothing lands between zero and the first real catch,
+# so the floor is zero rather than a tolerance above it.
+null_floor = 0.0
+# The least reward a known-wrong submission must give up. The naive baseline in tests/controls
+# reaches none of the graded windows and a fabricated report trips the validity gate to 0, both
+# against the oracle at 1.0. A submission that is right but narrow still scores, because recall
+# is a share of seven: one window caught with clean labels and minimal sources pays 1/7. So the
+# band separates a wrong submission from an incomplete one, and 0.5 sits inside it.
+discrimination_weight = 0.5
+platforms = ["linux/amd64", "linux/arm64"]
+
+[agent]
+network_mode = "no-network"
+timeout_sec = 43200.0
+# uid:gid 1001, not 1000. node:22-trixie-slim already ships a `node` user at 1000, so the
+# `useradd -m agent` in environment/Dockerfile lands on 1001; that image selects `agent` as its
+# final USER and chowns /app to it. Declaring it here runs the agent as that user instead of
+# root and clears `harbor lint --select ALL`'s `root-agent` finding.
+user = "1001:1001"
+
+[verifier]
+timeout_sec = 10800.0
+environment_mode = "separate"
+network_mode = "no-network"
+
+# The grader's own envelope, declared rather than inherited. The judge image carries
+# typescript@6.0.3 and the fourteen graded Go builds the agent image does not, and grade.py
+# rechecks every reported witness on the reference and on both the pre- and post-fix builds, so
+# it needs at least the agent's CPU and memory and more disk than the default.
+[verifier.environment]
+network_mode = "no-network"
+cpus = 4
+memory_mb = 8192
+storage_mb = 30720
+build_timeout_sec = 3600.0
+
+[environment]
+# No docker_image: environment/Dockerfile carries the agent sandbox. An unqualified local tag
+# here makes Harbor skip that Dockerfile and try a registry pull that cannot resolve.
+workdir = "/app"
+network_mode = "no-network"
+cpus = 4
+memory_mb = 8192
+storage_mb = 20480
+build_timeout_sec = 3600.0
+
+# Read by the brocket harness launcher, `harness/scripts/run_trajectory.sh`, and by nothing in
+# Harbor. Plain `harbor run` ignores this table, which is why `harbor lint` reports
+# `unknown-config-field` for it; the notice is expected, not a defect.
+#
+# DO NOT delete this table to quiet the linter. `submit_paths` is what the harness collects as
+# the submission and `parser` is how it reads the score, so without them a trajectory either
+# submits nothing or cannot be scored, and every rollout lands at 0 while plain `harbor run`
+# still shows 1.0 -- a failure that is invisible to the runner used for oracle checks. Moving the
+# table under [metadata] also silences the linter and breaks the harness the same way.
+[extensions.sforge]
+work_image_tag = "tsdiff-work-2"
+judge_image_tag = "tsdiff-judge-1"
+task_id = "ts_checker_differential"
+base_image = "node22"
+platform = "linux/arm64"
+parser = "structured_json"
+selection = "score_first"
+score_direction = "maximize"
+# cwd must be declared, and must be the directory submit_paths is relative to. Undeclared it
+# defaults to /workspace, which exists in neither image: the launcher's `cd` fails, nothing is
+# collected, and every round scores zero while plain `harbor run` still shows the oracle at 1.0 --
+# the same class of failure this table's warning above describes. /app is [environment].workdir
+# and the deliverable is /app/tester, so the pair below resolves to exactly that tree.
+cwd = "/app"
+submit_paths = ["tester/"]
+submit_exclude = [".git/", "**/node_modules/", "**/__pycache__/", "**/*.pyc"]
+
+# Mirrors extensions.sforge.submit_exclude above so the bundle carries one list, not two, and so
+# the tree Harbor collects is the tree the launcher submits. /logs/verifier is deliberately not
+# listed: it is already a mount of trial_dir/verifier, so declaring it only makes Harbor hunt for
+# the reward file in the agent container.
+[[artifacts]]
+source = "/app/tester"
+exclude = [".git/", "**/node_modules/", "**/__pycache__/", "**/*.pyc"]
+
+# The task is authored here rather than repackaged from another benchmark, so it declares no
+# upstream benchmark and no upstream license. The graded ground truth is public: each
+# correction window brackets a merged upstream fix, and the published builds that bracket it
+# are pinned in tests/grader/windows.json.
+#
+# Contamination note for the offer: the seven graded fixes are public pull requests, so a
+# model may have encountered them in training. Catching a window demonstrates that the
+# submitted tester discriminates; it is not evidence of independent discovery. The graded
+# set, as recorded in solution/TRUTH.md:
+#   W1 microsoft/typescript-go#3496   W2 microsoft/typescript-go#3672
+#   W3 microsoft/typescript-go#3695   W4 microsoft/typescript-go#3869
+#   W5 microsoft/typescript-go#3932   W6 microsoft/typescript-go#4691
+#   W7 microsoft/TypeScript#64772
+#
+# Six of the seven fixes landed in the Go port; W7 landed in microsoft/TypeScript itself,
+# which is why canonical_repo names the port but the window list cites both repositories.
+#
+# provenance_date is deliberately absent: it is not recomputable from the shipped bytes, and
+# a date invented at QC time would fabricate the one provenance fact an auditor cannot
+# recheck. Supply it from the authoring record before delivery.
+#
+# Vendor table, not a Harbor one. Harbor 0.25.0 does not model it, so `harbor lint` reports
+# `unknown-config-field` here; the notice is expected and the task validates and runs normally.
+# Do not delete it to quiet the linter -- its absence is itself a provenance finding, because
+# this task is graded against public upstream fixes.
+[upstream_provenance]
+origin = "original"
+source_kind = "public_repository"
+
+[upstream_provenance.source]
+canonical_repo = "github.com/microsoft/typescript-go"
+# base_commit, event_timestamp and fork_ancestry_digest are deliberately absent. The graded
+# builds are pinned as published npm versions by date rather than by commit, so no single
+# base commit describes the set, and neither repository is a fork.

@@ -1,0 +1,287 @@
+[
+ {
+  "pr": "163496",
+  "mechanism": "inductive-vs-coinductive-cycle",
+  "pre": "nightly-2026-09-30",
+  "post": "nightly-2026-10-02",
+  "caught": true,
+  "witnesses": [
+   {
+    "id": "cycle_auto:Send:1:u32:True",
+    "family": "cycle_auto",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_auto:Send:1:u8:True",
+    "family": "cycle_auto",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_auto:Send:1:String:True",
+    "family": "cycle_auto",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_auto:Send:1:():True",
+    "family": "cycle_auto",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_auto:Send:2:u32:True",
+    "family": "cycle_auto",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_auto:Send:2:u8:True",
+    "family": "cycle_auto",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_auto:Send:2:String:True",
+    "family": "cycle_auto",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_auto:Send:2:():True",
+    "family": "cycle_auto",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_auto:Sync:1:u32:True",
+    "family": "cycle_auto",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_auto:Sync:1:u8:True",
+    "family": "cycle_auto",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_auto:Sync:1:String:True",
+    "family": "cycle_auto",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_auto:Sync:1:():True",
+    "family": "cycle_auto",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_auto:Sync:2:u32:True",
+    "family": "cycle_auto",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_auto:Sync:2:u8:True",
+    "family": "cycle_auto",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_auto:Sync:2:String:True",
+    "family": "cycle_auto",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_auto:Sync:2:():True",
+    "family": "cycle_auto",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   }
+  ]
+ },
+ {
+  "pr": "160982",
+  "mechanism": "canonicalization-infer-vars",
+  "pre": "nightly-2026-08-14",
+  "post": "nightly-2026-08-15",
+  "caught": true,
+  "witnesses": [
+   {
+    "id": "canon_region:2:&()",
+    "family": "canon_region",
+    "pre": "accept/reject",
+    "post": "accept/accept"
+   },
+   {
+    "id": "canon_region:2:&u8",
+    "family": "canon_region",
+    "pre": "accept/reject",
+    "post": "accept/accept"
+   },
+   {
+    "id": "canon_region:3:&()",
+    "family": "canon_region",
+    "pre": "accept/reject",
+    "post": "accept/accept"
+   },
+   {
+    "id": "canon_region:3:&u8",
+    "family": "canon_region",
+    "pre": "accept/reject",
+    "post": "accept/accept"
+   }
+  ]
+ },
+ {
+  "pr": "161047",
+  "mechanism": "assoc-type-normalization-in-cycle",
+  "pre": "nightly-2026-08-15",
+  "post": "nightly-2026-08-16",
+  "caught": true,
+  "witnesses": [
+   {
+    "id": "opaque_implied:Outlives<T>:True",
+    "family": "opaque_implied",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "opaque_implied:Outlives<T>:False",
+    "family": "opaque_implied",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "opaque_implied:(T, Outlives<T>):False",
+    "family": "opaque_implied",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   }
+  ]
+ },
+ {
+  "pr": "163159",
+  "mechanism": "assoc-type-normalization-in-cycle",
+  "pre": "nightly-2026-09-22",
+  "post": "nightly-2026-09-24",
+  "caught": true,
+  "witnesses": [
+   {
+    "id": "cycle_proj:0:True:True",
+    "family": "cycle_proj",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_proj:0:True:False",
+    "family": "cycle_proj",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_proj:0:False:True",
+    "family": "cycle_proj",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_proj:0:False:False",
+    "family": "cycle_proj",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   }
+  ]
+ },
+ {
+  "pr": "159774",
+  "mechanism": "inductive-vs-coinductive-cycle",
+  "pre": "nightly-2026-07-27",
+  "post": "nightly-2026-07-28",
+  "caught": true,
+  "witnesses": [
+   {
+    "id": "cycle_gat:True:Bound",
+    "family": "cycle_gat",
+    "pre": "ice/reject",
+    "post": "reject/reject"
+   },
+   {
+    "id": "cycle_gat:False:Bound",
+    "family": "cycle_gat",
+    "pre": "ice/reject",
+    "post": "reject/reject"
+   }
+  ]
+ },
+ {
+  "pr": "160831",
+  "mechanism": "higher-ranked-bounds",
+  "pre": "nightly-2026-09-10",
+  "post": "nightly-2026-09-11",
+  "caught": true,
+  "witnesses": [
+   {
+    "id": "hrtb_object:u8:True",
+    "family": "hrtb_object",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "hrtb_object:u8:False",
+    "family": "hrtb_object",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "hrtb_object:u32:True",
+    "family": "hrtb_object",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "hrtb_object:u32:False",
+    "family": "hrtb_object",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   }
+  ]
+ },
+ {
+  "pr": "163267",
+  "mechanism": "coherence-negative-reasoning",
+  "pre": "nightly-2026-10-05",
+  "post": "nightly-2026-10-07",
+  "caught": true,
+  "witnesses": [
+   {
+    "id": "coherence_hrtb:i32:u32:'static",
+    "family": "coherence_hrtb",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "coherence_hrtb:i32:i64:'static",
+    "family": "coherence_hrtb",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "coherence_hrtb:u8:u32:'static",
+    "family": "coherence_hrtb",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   },
+   {
+    "id": "coherence_hrtb:u8:i64:'static",
+    "family": "coherence_hrtb",
+    "pre": "reject/accept",
+    "post": "reject/reject"
+   }
+  ]
+ }
+]

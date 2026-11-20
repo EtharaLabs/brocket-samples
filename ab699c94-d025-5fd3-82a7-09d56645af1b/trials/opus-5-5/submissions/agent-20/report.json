@@ -1,0 +1,19 @@
+{
+  "task_id": "rustc_trait_solver_differential",
+  "submission_id": "f1bee2cec407",
+  "total_tests": 0,
+  "passed": 0,
+  "failed": 0,
+  "errors": 0,
+  "pass_rate": 0.0,
+  "score": 0.285714,
+  "score_0_100": null,
+  "timed_out": false,
+  "runtime_seconds": 1497.0489966869354,
+  "test_details": [],
+  "valid": true,
+  "summary": null,
+  "details": [],
+  "metrics": {},
+  "submitted_at": 1795073456.8724716
+}

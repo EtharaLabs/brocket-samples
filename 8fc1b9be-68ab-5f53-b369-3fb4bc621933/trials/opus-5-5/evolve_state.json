@@ -1,0 +1,455 @@
+{
+  "best_pass_rate": 0.8383838383838383,
+  "best_score": 0.438372,
+  "best_round": "agent-62",
+  "submissions": [
+    {
+      "kind": "agent",
+      "round": "agent-1",
+      "at": 1795115693,
+      "pass_rate": 0.5050505050505051,
+      "score": 0.05814
+    },
+    {
+      "kind": "agent",
+      "round": "agent-2",
+      "at": 1795116314,
+      "pass_rate": 0.5252525252525253,
+      "score": 0.060465
+    },
+    {
+      "kind": "agent",
+      "round": "agent-3",
+      "at": 1795116948,
+      "pass_rate": 0.6060606060606061,
+      "score": 0.069767
+    },
+    {
+      "kind": "agent",
+      "round": "agent-4",
+      "at": 1795117656,
+      "pass_rate": 0.6060606060606061,
+      "score": 0.069767
+    },
+    {
+      "kind": "agent",
+      "round": "agent-5",
+      "at": 1795118946,
+      "pass_rate": 0.5454545454545454,
+      "score": 0.062791
+    },
+    {
+      "kind": "agent",
+      "round": "agent-6",
+      "at": 1795119547,
+      "pass_rate": 0.5454545454545454,
+      "score": 0.062791
+    },
+    {
+      "kind": "agent",
+      "round": "agent-7",
+      "at": 1795120176,
+      "pass_rate": 0.5454545454545454,
+      "score": 0.062791
+    },
+    {
+      "kind": "agent",
+      "round": "agent-8",
+      "at": 1795120761,
+      "pass_rate": 0.5454545454545454,
+      "score": 0.062791
+    },
+    {
+      "kind": "agent",
+      "round": "agent-9",
+      "at": 1795121368,
+      "pass_rate": 0.5454545454545454,
+      "score": 0.062791
+    },
+    {
+      "kind": "agent",
+      "round": "agent-10",
+      "at": 1795121976,
+      "pass_rate": 0.5454545454545454,
+      "score": 0.062791
+    },
+    {
+      "kind": "agent",
+      "round": "agent-11",
+      "at": 1795122583,
+      "pass_rate": 0.6060606060606061,
+      "score": 0.069767
+    },
+    {
+      "kind": "agent",
+      "round": "agent-12",
+      "at": 1795123201,
+      "pass_rate": 0.6060606060606061,
+      "score": 0.069767
+    },
+    {
+      "kind": "agent",
+      "round": "agent-13",
+      "at": 1795123797,
+      "pass_rate": 0.6363636363636364,
+      "score": 0.073256
+    },
+    {
+      "kind": "agent",
+      "round": "agent-14",
+      "at": 1795124415,
+      "pass_rate": 0.6363636363636364,
+      "score": 0.073256
+    },
+    {
+      "kind": "agent",
+      "round": "agent-15",
+      "at": 1795125011,
+      "pass_rate": 0.6363636363636364,
+      "score": 0.073256
+    },
+    {
+      "kind": "agent",
+      "round": "agent-16",
+      "at": 1795125619,
+      "pass_rate": 0.6363636363636364,
+      "score": 0.073256
+    },
+    {
+      "kind": "agent",
+      "round": "agent-17",
+      "at": 1795126226,
+      "pass_rate": 0.6363636363636364,
+      "score": 0.073256
+    },
+    {
+      "kind": "agent",
+      "round": "agent-18",
+      "at": 1795126833,
+      "pass_rate": 0.6363636363636364,
+      "score": 0.073256
+    },
+    {
+      "kind": "agent",
+      "round": "agent-19",
+      "at": 1795127634,
+      "pass_rate": 0.6363636363636364,
+      "score": 0.073256
+    },
+    {
+      "kind": "agent",
+      "round": "agent-20",
+      "at": 1795128241,
+      "pass_rate": 0.6363636363636364,
+      "score": 0.073256
+    },
+    {
+      "kind": "agent",
+      "round": "agent-21",
+      "at": 1795128848,
+      "pass_rate": 0.6363636363636364,
+      "score": 0.073256
+    },
+    {
+      "kind": "agent",
+      "round": "agent-22",
+      "at": 1795129511,
+      "pass_rate": 0.6363636363636364,
+      "score": 0.073256
+    },
+    {
+      "kind": "agent",
+      "round": "agent-23",
+      "at": 1795130815,
+      "pass_rate": 0.6363636363636364,
+      "score": 0.073256
+    },
+    {
+      "kind": "agent",
+      "round": "agent-24",
+      "at": 1795131422,
+      "pass_rate": 0.6363636363636364,
+      "score": 0.073256
+    },
+    {
+      "kind": "agent",
+      "round": "agent-25",
+      "at": 1795132029,
+      "pass_rate": 0.6363636363636364,
+      "score": 0.073256
+    },
+    {
+      "kind": "agent",
+      "round": "agent-26",
+      "at": 1795132636,
+      "pass_rate": 0.6363636363636364,
+      "score": 0.073256
+    },
+    {
+      "kind": "agent",
+      "round": "agent-27",
+      "at": 1795133243,
+      "pass_rate": 0.6363636363636364,
+      "score": 0.073256
+    },
+    {
+      "kind": "agent",
+      "round": "agent-28",
+      "at": 1795133850,
+      "pass_rate": 0.6363636363636364,
+      "score": 0.073256
+    },
+    {
+      "kind": "agent",
+      "round": "agent-29",
+      "at": 1795134592,
+      "pass_rate": 0.6363636363636364,
+      "score": 0.073256
+    },
+    {
+      "kind": "agent",
+      "round": "agent-30",
+      "at": 1795135882,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-31",
+      "at": 1795136489,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-32",
+      "at": 1795137116,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-33",
+      "at": 1795137813,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-34",
+      "at": 1795138421,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-35",
+      "at": 1795139027,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-36",
+      "at": 1795139635,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-37",
+      "at": 1795140242,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-38",
+      "at": 1795140883,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-39",
+      "at": 1795141456,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-40",
+      "at": 1795142063,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-41",
+      "at": 1795142670,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-42",
+      "at": 1795143278,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-43",
+      "at": 1795143907,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-44",
+      "at": 1795144493,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-45",
+      "at": 1795145100,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-46",
+      "at": 1795145742,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-47",
+      "at": 1795146349,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-48",
+      "at": 1795146990,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-49",
+      "at": 1795147564,
+      "pass_rate": 0.7676767676767676,
+      "score": 0.088372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-50",
+      "at": 1795148160,
+      "pass_rate": 0.797979797979798,
+      "score": 0.238372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-51",
+      "at": 1795149159,
+      "pass_rate": 0.797979797979798,
+      "score": 0.238372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-52",
+      "at": 1795149776,
+      "pass_rate": 0.797979797979798,
+      "score": 0.238372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-53",
+      "at": 1795150384,
+      "pass_rate": 0.797979797979798,
+      "score": 0.238372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-54",
+      "at": 1795150991,
+      "pass_rate": 0.797979797979798,
+      "score": 0.238372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-55",
+      "at": 1795151599,
+      "pass_rate": 0.797979797979798,
+      "score": 0.238372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-56",
+      "at": 1795152239,
+      "pass_rate": 0.797979797979798,
+      "score": 0.238372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-57",
+      "at": 1795152813,
+      "pass_rate": 0.797979797979798,
+      "score": 0.238372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-58",
+      "at": 1795153420,
+      "pass_rate": 0.797979797979798,
+      "score": 0.238372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-59",
+      "at": 1795154027,
+      "pass_rate": 0.797979797979798,
+      "score": 0.238372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-60",
+      "at": 1795154726,
+      "pass_rate": 0.797979797979798,
+      "score": 0.238372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-61",
+      "at": 1795155344,
+      "pass_rate": 0.797979797979798,
+      "score": 0.238372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-62",
+      "at": 1795155940,
+      "pass_rate": 0.8383838383838383,
+      "score": 0.438372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-63",
+      "at": 1795156547,
+      "pass_rate": 0.8383838383838383,
+      "score": 0.438372
+    },
+    {
+      "kind": "agent",
+      "round": "agent-64",
+      "at": 1795157154,
+      "pass_rate": 0.8383838383838383,
+      "score": 0.438372
+    }
+  ]
+}

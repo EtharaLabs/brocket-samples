@@ -1,0 +1,145 @@
+schema_version = "1.4"
+reward_type = "bounded_continuous"
+
+# The operator reporting rule: difficulty is reported as the continuous reward the verifier
+# writes, never converted to a binary pass. Acceptance bar: pass@1 below 70 percent for the
+# preferred frontier cohort, or at or below 25 percent for the named lower-capability cohort,
+# and the oracle solution scores 1.0.
+#
+# /logs/verifier is not listed: it is already a mount of trial_dir/verifier, so declaring it
+# only made Harbor hunt for the reward file in the agent container.
+artifacts = [
+  "/app/rust/compiler",
+]
+
+[metadata]
+# Both platforms are declared because the graded property is read from MIR, not from codegen:
+# count_bounds_checks.py counts `assert(.. "index out of bounds")` terminators in the
+# -Zmir-opt-level=2 MIR dump, which rustc produces before target lowering, so the corpus counts
+# in tests/corpus/expected.json are not architecture-dependent. Nothing here reads a machine
+# instruction or a target feature. The stage-1 paths that *are* architecture-dependent are
+# derived from the host triple in tests/test.sh and tests/measure.py rather than hardcoded.
+#
+# Measured on linux/arm64. A cold native arm64 build of environment/Dockerfile was recorded at
+# about 2.5 hours end to end, which is the basis for build_timeout_sec = 14400 below. Unreconciled:
+# a later QC run reached the grader in about 11.5 minutes with a 1 min 27 s incremental rebuild,
+# but did not pay for a cold stage-1 build, so it does not refute the figure above. Re-time a
+# genuine no-cache build before trusting either. download-ci-llvm resolves
+# rust-dev-1.99.1-aarch64-unknown-linux-gnu, so no LLVM is built from source. The resulting
+# stage-1 compiler sits at build/aarch64-unknown-linux-gnu/stage1/bin/rustc, the path
+# tests/test.sh and tests/measure.py derive, and reports host aarch64-unknown-linux-gnu at
+# commit 58cf8f9c35b355199727627d07ae34a4e2846d67 with LLVM 23.1.1.
+#
+# The reference pass over the corpus reproduces on that image: soundness_gate 1.0 with all 144
+# must_keep rows ok and zero unsound, and every base count in tests/corpus/expected.json matches
+# the observed count exactly, with zero mismatches across the 99 should_remove checks. The
+# unpatched tree scores generalization 0.0 and reward 0.0, which is the declared null floor.
+# This is what makes the MIR-level argument above evidence rather than reasoning.
+#
+# Operational constraint: build the arm64 image on a native arm64 builder. The warm stage-1
+# build is the dominant cost, and the measured QEMU penalty on this bundle's own images is
+# about 6.5x, which would put an emulated build far outside the timeout.
+platforms = ["linux/amd64", "linux/arm64"]
+# A submission that changes nothing, or that registers a pass proving nothing, is paid exactly
+# zero, so the null floor sits at zero rather than at a tolerance above it.
+null_floor = 0.0
+# The least reward a known-wrong submission must give up. Every control authored for this task
+# falls the whole way to zero, while a submission that misses one whole mechanism class still
+# clears 0.55, because the heaviest class in tests/corpus/expected.json carries mass 0.45
+# (max_bound 0.45, summary 0.45, solved 0.1). So the band separates a wrong solution from an
+# incomplete one.
+discrimination_weight = 0.5
+harbor_release = "0.24.0"
+
+[task]
+name = "ethara/8fc1b9be-68ab-5f53-b369-3fb4bc621933"
+version = "1.0.0"
+description = "Extend the MIR optimizer of rust-lang/rust at tag 1.99.1 so that it removes every slice or array bounds-check assertion that is provably always true, whether from facts in the function itself or from sound summaries of callees that are not inlined, and never one that can fail. Graded continuously on [0, 1] as a mechanism-class-weighted score over the held-out always-safe bounds checks the submission removes: each class contributes the fraction removed within it scaled by that class's declared mass, and the masses sum to one, so removing every check scores exactly 1.0 while the weighting shapes only the partial-credit gradient. That score is multiplied by a soundness gate over a held-out corpus of checks that can fail, and by a regression gate that revalidates every corpus case under -Zvalidate-mir and then runs the built compiler: a program assembled from the loop shapes the pass rewrites must still compute the right answer, and a genuinely out-of-range access must still panic. Breaking the compiler, or removing a check that can fire, scores zero."
+keywords = [
+  "rust",
+  "rustc",
+  "compiler",
+  "mir",
+  "optimizer",
+  "bounds-check-elimination",
+  "semantics-preserving-transform",
+  "dataflow-analysis",
+  "systems-and-se",
+]
+
+[[task.authors]]
+name = "piyush.agrawal"
+email = "piyush.agrawal@ethara.ai"
+
+[agent]
+timeout_sec = 43200
+network_mode = "no-network"
+# The solver starts as this uid, not as root: the environment image creates it and owns the
+# checkout with it, so the agent can edit and rebuild without privilege. It is not confined to
+# it. The image also installs sudo and grants `agent ALL=(ALL) NOPASSWD:ALL` for the harness
+# launcher, so the solver can escalate inside its own sandbox. Grading is unaffected, because
+# the verifier rebuilds the submitted sources in a separate container the agent never enters.
+user = "1000:1000"
+
+[environment]
+network_mode = "no-network"
+workdir = "/app/rust"
+build_timeout_sec = 14400
+cpus = 8
+# A stage-1 rustc build is memory hungry and the warm tree plus build output is large.
+memory_mb = 16384
+storage_mb = 61440
+gpus = 0
+
+[verifier]
+timeout_sec = 7200
+network_mode = "no-network"
+# The grader runs in its own container, built from tests/Dockerfile, never in the solver's.
+# Sharing the solver's container would let the agent choose the binary that gets graded.
+environment_mode = "separate"
+
+[verifier.environment]
+network_mode = "no-network"
+build_timeout_sec = 14400
+cpus = 8
+memory_mb = 16384
+storage_mb = 61440
+gpus = 0
+
+# Declarations the brocket harness launcher reads, and nothing else does. Plain `harbor run`
+# ignores this table; `harness/scripts/run_trajectory.sh` refuses the bundle without it.
+#
+# The launcher builds both images from this bundle's own Dockerfiles, work from environment/
+# and judge from tests/, and tags them `<benchmark>.work.<task_id>:<work_image_tag>` and
+# `<benchmark>.judge.<task_id>:<judge_image_tag>`. So these two values are the tag component
+# of those names, and the sforge task JSON for this task must carry the identical strings as
+# its `work.image_tag` and `judge.image_tag`, or the run looks for an image nobody built.
+#
+# task_id is declared rather than inferred. Without it the launcher derives one by splitting
+# the task name on the first slash and taking the remainder, which happens to give the same
+# string here; naming it keeps the run id stable if the task name is ever requalified.
+[extensions.sforge]
+task_id = "rustc_mir_bounds_check_elision"
+work_image_tag = "local"
+judge_image_tag = "local"
+base_image = "rust"
+# submit_paths is resolved relative to cwd, and the submitted tree is /app/rust/compiler, so cwd
+# is the checkout root rather than /app. Undeclared it defaults to /workspace, which exists in
+# neither image: the eval's `cd` fails and nothing is collected, scoring every round zero.
+cwd = "/app/rust"
+submit_paths = ["compiler/"]
+
+# The upstream this task is built on. origin is original: the task is authored here rather
+# than repackaged from another benchmark, so it declares no upstream benchmark or license.
+[upstream_provenance]
+origin = "original"
+provenance_date = "2026-11-10"
+source_kind = "public_repository"
+
+[upstream_provenance.source]
+canonical_repo = "rust-lang/rust"
+# sha256 of "<canonical_repo>@<base_commit>", so the ancestry this task claims is recomputable
+# from the two values recorded here rather than asserted.
+fork_ancestry_digest = "sha256:5d1311c6bbb968d660be47461f9720700c408f669b9efd639b234089a7d6956a"
+base_commit = "58cf8f9c35b355199727627d07ae34a4e2846d67"
+event_timestamp = "2026-10-05T05:04:46Z"

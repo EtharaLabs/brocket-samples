@@ -1,0 +1,19 @@
+{
+  "task_id": "ts_checker_differential_v1119",
+  "submission_id": "f961569790cd",
+  "total_tests": 0,
+  "passed": 0,
+  "failed": 0,
+  "errors": 0,
+  "pass_rate": 0.0,
+  "score": 0.0,
+  "score_0_100": null,
+  "timed_out": false,
+  "runtime_seconds": 337.92005443573,
+  "test_details": [],
+  "valid": true,
+  "summary": null,
+  "details": [],
+  "metrics": {},
+  "submitted_at": 1795095839.595452
+}

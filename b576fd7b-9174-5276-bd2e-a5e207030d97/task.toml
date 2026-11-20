@@ -1,0 +1,144 @@
+schema_version = "1.4"
+
+# Vendor field, not a Harbor field. The Smoldata CLI reads it; Harbor 0.25.0 does not model it,
+# so `harbor lint` reports `unknown-config-field` here. That notice is expected and is not a
+# defect: TaskConfig declares no model_config, so pydantic ignores the key and the task validates
+# and runs normally. Do not delete it to quiet the linter -- absent, the reward reverts to binary
+# and every continuous partial score collapses. To get a clean preflight run
+# `harbor lint --ignore unknown-config-field`, which exits 0 on this task.
+reward_type = "bounded_continuous"
+
+[task]
+name = "ethara/b576fd7b-9174-5276-bd2e-a5e207030d97"
+version = "1.0.0"
+description = "Build a structural conformance differential tester between the JavaScript and native TypeScript checkers."
+keywords = ["typescript", "compiler", "type-checking", "differential-testing"]
+authors = [{ name = "piyush.agrawal", email = "piyush.agrawal@ethara.ai" }]
+
+[metadata]
+category = "programming"
+tags = ["typescript", "compiler", "testing"]
+harbor_release = "0.24.0"
+# Measured by the nine-mode control matrix recorded below, not assumed. The `missing` mode -- no
+# tester at the declared entry point -- returns reward 0.0 with validity_gate 0 on both declared
+# platforms, and `empty`, `impossible`, `mode-discipline`, `naive`, `spray` and `liar` all return
+# 0.0 as well. Nothing lands between zero and the first real catch, so the floor is zero rather
+# than a tolerance above it.
+null_floor = 0.0
+# The least reward a known-wrong submission must give up. Every wrong control in that matrix
+# falls the whole way to zero, against the oracle at 1.0, and `liar` -- a report whose claimed
+# outcomes do not reproduce -- is zeroed by the validity gate with invalid 6 however many real
+# windows it also caught. A submission that is right but narrow still scores: `one-mechanism`
+# measures 0.1667, exactly 1 of 6 windows, at attribution and minimality 1.0. So the band
+# separates a wrong submission from an incomplete one, and 0.5 sits inside it.
+discrimination_weight = 0.5
+platforms = ["linux/amd64", "linux/arm64"]
+# linux/arm64 is declared on measured evidence. Inside the arm64 verifier image, built from
+# tests/Dockerfile and run under the declared 2 CPU / 6144 MiB envelope at seed 20261113, the
+# oracle returns reward 1.0 with validity_gate 1, 6 of 6 windows caught, 15 witnesses read and
+# 0 fabricated, unstable or unreproducible, and every one of the nine structured checks passes;
+# grade.mts records arch "arm64" in that report. The missing-tester control on the same image
+# returns reward 0.0 with gate 0, so the null floor and the oracle separate on arm64 as they do
+# on amd64.
+#
+# The graded native checkers are published npm builds of the TypeScript Go implementation,
+# shipped as per-platform optional dependencies. Both Dockerfiles resolve them against TARGETOS
+# and TARGETARCH and then execute every installed checker in the target-platform stage, so an
+# image missing an arm64 build of any graded version fails to build rather than mis-scoring a
+# submission; all thirteen checkers were proved to run on both platforms.
+#
+# The partial-credit controls were measured on arm64 too. naive, spray and liar each return
+# reward 0.0 there, matching their amd64 figures, and 20 of the 21
+# compared fields are identical: validity_gate, caught, attribution, minimality and invalid agree
+# exactly for all three, including liar's gate 0 with invalid 6 and spray's caught 6.
+#
+# One field is throughput-sensitive, and the earlier framing of it was wrong. naive's precision
+# was recorded as 0.8302 on arm64 against 0.5268 on amd64; a later native arm64 run of the full
+# matrix, at the declared 2 CPU / 6144 MiB, measured 0.527 on arm64 — the figure attributed to
+# amd64. So this is not an architecture split: precision is allowance/reported, naive generates
+# until its wall-clock budget expires, and the number tracks the throughput the container is
+# granted. spray agrees to seventeen digits (0.15769300144300144) because its report is bounded
+# by the seeded program set instead, which is the shape that is stable. Every verdict-bearing
+# factor stays platform-invariant; only a time-bounded witness count moves between machines.
+#
+# The nine-mode matrix is now measured on native linux/arm64 (node v26.13.0, 2 CPU / 6144 MiB),
+# discharging the four modes this table previously recorded as owed:
+#   oracle 1.0000 (gate 1, 6/6, 15 witnesses) | missing 0.0000 (gate 0)
+#   empty 0.0000 (gate 1, recall 0) | impossible 0.0000 (gate 1, 0/1)
+#   mode-discipline 0.0000 (gate 1, recall 0) | one-mechanism 0.1667 (gate 1, 1/6)
+#   naive 0.0000 | spray 0.0000 | liar 0.0000 (gate 0, invalid 6)
+# one-mechanism is the informative row: a working submission exercising a single family earns
+# exactly 1/6, which is the continuous partial credit the reward claims. Every control sits below
+# the oracle. These are control modes, not a pilot: difficulty remains unmeasured.
+
+[agent]
+timeout_sec = 43200.0
+network_mode = "no-network"
+# uid:gid 1000 is `node` in node:26.13.0-bookworm-slim, which environment/Dockerfile selects as
+# its final USER and which owns /app/tester. Declaring it here makes the agent run as that user
+# rather than root, and clears `harbor lint --select ALL`'s `root-agent` finding.
+user = "1000:1000"
+
+[verifier]
+timeout_sec = 10800.0
+environment_mode = "separate"
+network_mode = "no-network"
+
+# The grader's own envelope, declared rather than inherited. The judge image carries eleven
+# graded native builds the agent image does not, and grade.mts recompiles every reported witness
+# on the frozen reference and on both the pre- and post-correction builds, so it needs at least
+# the agent's CPU and memory and more disk than the default. Holding cpus at 2 also keeps the
+# throughput-sensitive precision figure recorded in [metadata] comparable between phases.
+[verifier.environment]
+network_mode = "no-network"
+cpus = 2
+memory_mb = 6144
+storage_mb = 20480
+build_timeout_sec = 3600.0
+
+[environment]
+# workdir is declared so the agent's shell starts where the deliverable lives, and so it agrees
+# with extensions.sforge.cwd below. The two must name the same directory: Harbor reads this one
+# and the brocket launcher reads that one.
+workdir = "/app"
+network_mode = "no-network"
+cpus = 2
+memory_mb = 6144
+storage_mb = 12288
+build_timeout_sec = 3600.0
+
+# Read by the brocket harness launcher, `harness/scripts/run_trajectory.sh`, and by nothing in
+# Harbor. Plain `harbor run` ignores this table, which is why `harbor lint` reports
+# `unknown-config-field` for it; the notice is expected, not a defect.
+#
+# DO NOT delete this table to quiet the linter. `submit_paths` is what the harness collects as
+# the submission and `parser` is how it reads the score, so without them a trajectory either
+# submits nothing or cannot be scored, and every rollout lands at 0 while plain `harbor run`
+# still shows 1.0 -- a failure that is invisible to the runner used for oracle checks. Moving the
+# table under [metadata] also silences the linter and breaks the harness the same way.
+[extensions.sforge]
+work_image_tag = "checker-work-1"
+judge_image_tag = "checker-judge-1"
+task_id = "typescript_checker_differential"
+base_image = "cpp"
+platform = "linux/amd64"
+parser = "structured_json"
+selection = "score_first"
+score_direction = "maximize"
+# cwd must be declared, and must be the directory submit_paths is relative to. Undeclared it
+# defaults to /workspace, which exists in neither image: the launcher's `cd` fails, nothing is
+# collected, and every round scores zero while plain `harbor run` still shows the oracle at 1.0 --
+# a failure invisible to the runner used for oracle checks. /app is environment/Dockerfile's
+# WORKDIR and [environment].workdir above, and the deliverable is /app/tester, so the pair below
+# resolves to exactly that tree.
+cwd = "/app"
+submit_paths = ["tester/"]
+submit_exclude = [".git/", "**/node_modules/"]
+
+# Mirrors extensions.sforge.submit_exclude above so the bundle carries one list, not two, and so
+# the tree Harbor collects is the tree the launcher submits. /logs/verifier is deliberately not
+# listed: it is already a mount of trial_dir/verifier, so declaring it only makes Harbor hunt for
+# the reward file in the agent container.
+[[artifacts]]
+source = "/app/tester"
+exclude = [".git/", "**/node_modules/"]

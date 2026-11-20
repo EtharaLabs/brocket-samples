@@ -1,0 +1,9 @@
+2026-11-19 02:52:25,835 - INFO - Judge container started: e6b37f7701f38345b34426fefc5cd88160daeab50dbce57cef3886ab991c6e29
+2026-11-19 02:52:25,835 - INFO - Archive saved (1397390 bytes)
+2026-11-19 02:52:26,074 - INFO - Archive extracted: 34 file(s) allowed, 0 rejected
+2026-11-19 02:52:26,113 - INFO - Running eval script...
+2026-11-19 03:17:23,149 - INFO - Test runtime: 1497.04s, timed_out: False
+2026-11-19 03:17:23,149 - INFO - Result: 0/0 passed (pass_rate=0.00%)
+2026-11-19 03:17:23,149 - INFO - Stopping container edgebench.judge.rustc_trait_solver_differential.651f57bcd484...
+2026-11-19 03:17:23,419 - INFO - Removing container edgebench.judge.rustc_trait_solver_differential.651f57bcd484...
+2026-11-19 03:17:23,428 - INFO - Container edgebench.judge.rustc_trait_solver_differential.651f57bcd484 removed.

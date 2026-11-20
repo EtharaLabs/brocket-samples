@@ -1,0 +1,9 @@
+[
+ {
+  "id": "IMPOSSIBLE",
+  "pre": "7.1.0-dev.20261028.1",
+  "post": "7.1.0-dev.20261103.1",
+  "mechanism": "none: no graded correction lands in this span",
+  "rationale": "Both versions are resident in the verifier image and the span contains none of the six graded corrections. W1 through W4 are already corrected by 20260722.1, 20260723.1, 20260819.1 and 20261014.1, so their witnesses agree under both checkers on both ends. W5 is corrected by 20261028.1, which is this window's pre, so its witness agrees on both ends too. W6 is not corrected until 20261104.1, so its witness splits on BOTH ends and is a persistent background difference here rather than a witness. A submission that credits this window proves the post-fix-agree half of the catch rule is not being applied, because there is nothing in this span to catch."
+ }
+]

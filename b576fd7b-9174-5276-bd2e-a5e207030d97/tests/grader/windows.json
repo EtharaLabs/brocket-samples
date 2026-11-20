@@ -1,0 +1,8 @@
+[
+ {"id":"W1","pre":"7.1.0-dev.20260721.1","post":"7.1.0-dev.20260722.1","mechanism":"union-matching-depth","fix":"microsoft/typescript-go#4591","commit":"90b40e8b21ff73bdaabdda4ec154adbb1e8e0ae5","note":"Match unions in nesting-depth order; excludes the independent CFA fix in this nightly by structural family."},
+ {"id":"W2","pre":"7.1.0-dev.20260722.1","post":"7.1.0-dev.20260723.1","mechanism":"dependent-binding-reentrance","fix":"microsoft/typescript-go#4606","commit":"36d9c9b1296de748f7cf5d7ca648918097cc5167","note":"Preserve dependent destructuring narrowing through re-entrant overloaded assertion checking."},
+ {"id":"W3","pre":"7.1.0-dev.20260818.1","post":"7.1.0-dev.20260819.1","mechanism":"array-linked-relation-cycle","fix":"microsoft/typescript-go#4913","commit":"12548e2a13b61004a2464686df7cbfe88640bbf9","note":"Remove spurious depth overflow on finite cyclic array-linked interfaces."},
+ {"id":"W4","pre":"7.1.0-dev.20261013.1","post":"7.1.0-dev.20261014.1","mechanism":"remapped-key-constraint","fix":"microsoft/TypeScript#64772","commit":"a0a0ff55cab4a1f81b7123ab219c97a2f1ed703d","note":"Restore keyof simplification for mapped name types."},
+ {"id":"W5","pre":"7.1.0-dev.20261027.1","post":"7.1.0-dev.20261028.1","mechanism":"reverse-mapping-accessibility","fix":"microsoft/TypeScript#64594","commit":"b6a965883b8e357d89b4574c134b4f971bb70253","note":"Exclude non-public keys from reverse mapping."},
+ {"id":"W6","pre":"7.1.0-dev.20261103.1","post":"7.1.0-dev.20261104.1","mechanism":"inherited-variance-layout","fix":"microsoft/TypeScript#65093","commit":"f0accfdfe02cb199b0f6c8ccab68e3419f33862a","note":"Restore inherited member ordering through empty subinterfaces."}
+]

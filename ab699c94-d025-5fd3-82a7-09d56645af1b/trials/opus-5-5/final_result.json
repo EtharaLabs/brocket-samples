@@ -1,0 +1,20 @@
+{
+  "agent": "claude-code",
+  "task": "rustc_trait_solver_differential",
+  "run_id": "tsolve-opus55-r2",
+  "model": "claude-opus-5-5",
+  "best_pass_rate": 0.0,
+  "best_round": "agent-3",
+  "total_rounds": 69,
+  "agent_submissions": 22,
+  "auto_submissions": 47,
+  "timed_out": true,
+  "runtime_seconds": 43200.02592968941,
+  "archive_size_bytes": 2737177,
+  "resume_count": 0,
+  "round_protocol": false,
+  "productive_rounds": 0,
+  "unproductive_rounds": 0,
+  "stalled": false,
+  "best_score": 0.285714
+}

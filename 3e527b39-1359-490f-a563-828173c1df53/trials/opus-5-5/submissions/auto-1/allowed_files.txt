@@ -1,0 +1,15 @@
+zig-port/src/main.zig
+zig-port/src/os.zig
+zig-port/src/util.zig
+zig-port/src/zlib.zig
+zig-port/src/hash.zig
+zig-port/src/odb.zig
+zig-port/src/config.zig
+zig-port/src/wildmatch.zig
+zig-port/src/regex.zig
+zig-port/src/repo.zig
+zig-port/src/refs.zig
+zig-port/src/ident.zig
+zig-port/src/date.zig
+zig-port/src/objects.zig
+zig-port/build.zig

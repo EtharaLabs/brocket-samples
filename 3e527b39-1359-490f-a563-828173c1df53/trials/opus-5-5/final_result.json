@@ -1,0 +1,20 @@
+{
+  "agent": "claude-code",
+  "task": "git_v2561_zig_dropin",
+  "run_id": "gitzig-dropin-opus55-r1",
+  "model": "claude-opus-5-5",
+  "best_pass_rate": 0.0,
+  "best_round": "auto-47",
+  "total_rounds": 62,
+  "agent_submissions": 15,
+  "auto_submissions": 47,
+  "timed_out": true,
+  "runtime_seconds": 43200.020651340485,
+  "archive_size_bytes": 1607535,
+  "resume_count": 11,
+  "round_protocol": false,
+  "productive_rounds": 0,
+  "unproductive_rounds": 0,
+  "stalled": false,
+  "best_score": 0.6107017867010499
+}

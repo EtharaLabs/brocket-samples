@@ -1,0 +1,131 @@
+{
+ "tighten": [
+  {
+   "pr": "163496",
+   "pre": "nightly-2026-10-01",
+   "candidate_post": "nightly-2026-10-02",
+   "current_post": "nightly-2026-10-03",
+   "candidate_post_rustc": "c36f1457196e315bc204b9564a6a5a7fe7f5a51f",
+   "contains_fix": true,
+   "oracle_witnesses": 16,
+   "result": "tightened",
+   "families": [
+    "cycle_auto"
+   ]
+  },
+  {
+   "pr": "163159",
+   "pre": "nightly-2026-09-22",
+   "candidate_post": "nightly-2026-09-23",
+   "current_post": "nightly-2026-09-24",
+   "candidate_post_rustc": "6bb1652a020e80cef79332741d89e996d71933c9",
+   "contains_fix": false,
+   "result": "intermediate nightly predates the fix; window stays"
+  },
+  {
+   "pr": "160831",
+   "pre": "nightly-2026-09-10",
+   "candidate_post": "nightly-2026-09-11",
+   "current_post": "nightly-2026-09-12",
+   "candidate_post_rustc": "67eda617e6a8f8ecec01e1ba7fafe2072a64adcc",
+   "contains_fix": true,
+   "oracle_witnesses": 4,
+   "result": "tightened",
+   "families": [
+    "hrtb_object"
+   ]
+  },
+  {
+   "pr": "159774",
+   "pre": "nightly-2026-07-27",
+   "candidate_post": "nightly-2026-07-28",
+   "current_post": "nightly-2026-07-28",
+   "candidate_post_rustc": "09ee43b2d6055539771bee8ac30a6e56eb4db773",
+   "contains_fix": true,
+   "oracle_witnesses": 2,
+   "result": "tightened",
+   "families": [
+    "cycle_gat"
+   ]
+  }
+ ],
+ "reserve": [
+  {
+   "pr": "159224",
+   "mechanism": "overflow-depth-on-auto-trait",
+   "pre": "nightly-2026-07-26",
+   "post": "nightly-2026-07-27",
+   "ancestry_ok": true,
+   "oracle_witnesses": 0,
+   "oracle_families": [],
+   "drawable": false,
+   "note": "oracle misses it"
+  },
+  {
+   "pr": "161552",
+   "mechanism": "overflow-depth-to-error",
+   "pre": "nightly-2026-08-24",
+   "post": "nightly-2026-08-26",
+   "ancestry_ok": true,
+   "oracle_witnesses": 0,
+   "oracle_families": [],
+   "drawable": false,
+   "note": "oracle misses it"
+  },
+  {
+   "pr": "162655",
+   "mechanism": "candidate-preference",
+   "pre": "nightly-2026-09-29",
+   "post": "nightly-2026-10-01",
+   "ancestry_ok": true,
+   "oracle_witnesses": 0,
+   "oracle_families": [],
+   "drawable": false,
+   "note": "oracle misses it"
+  },
+  {
+   "pr": "159646",
+   "mechanism": "inference-fallback-depth",
+   "pre": "nightly-2026-07-22",
+   "post": "nightly-2026-07-24",
+   "ancestry_ok": true,
+   "oracle_witnesses": 0,
+   "oracle_families": [],
+   "drawable": false,
+   "note": "oracle misses it"
+  },
+  {
+   "pr": "154992",
+   "mechanism": "object-projection-dyn-compat",
+   "pre": "nightly-2026-08-22",
+   "post": "nightly-2026-08-24",
+   "ancestry_ok": true,
+   "oracle_witnesses": 0,
+   "oracle_families": [],
+   "drawable": false,
+   "note": "oracle misses it"
+  },
+  {
+   "pr": "164023",
+   "mechanism": "typing-env-transition",
+   "pre": "nightly-2026-10-13",
+   "post": "nightly-2026-10-15",
+   "ancestry_ok": false,
+   "oracle_witnesses": 0,
+   "oracle_families": [],
+   "drawable": false,
+   "note": "oracle misses it"
+  },
+  {
+   "pr": "153847",
+   "mechanism": "marker-trait-overlap",
+   "pre": "nightly-2026-06-09",
+   "post": "nightly-2026-06-11",
+   "ancestry_ok": true,
+   "oracle_witnesses": 0,
+   "oracle_families": [],
+   "drawable": false,
+   "note": "oracle misses it"
+  }
+ ]
+}

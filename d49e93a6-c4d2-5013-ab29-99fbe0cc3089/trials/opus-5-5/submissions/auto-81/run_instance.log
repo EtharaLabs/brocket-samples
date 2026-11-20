@@ -1,0 +1,9 @@
+2026-11-19 14:04:03,091 - INFO - Judge container started: 767c9c3935e914239f9745b688291cad66137e21eae470111ec031c1d3335c30
+2026-11-19 14:04:03,092 - INFO - Archive saved (6389837 bytes)
+2026-11-19 14:04:03,410 - INFO - Archive extracted: 3 file(s) allowed, 0 rejected
+2026-11-19 14:04:03,433 - INFO - Running eval script...
+2026-11-19 14:11:11,496 - INFO - Test runtime: 428.06s, timed_out: False
+2026-11-19 14:11:11,496 - INFO - Result: 0/0 passed (pass_rate=0.00%)
+2026-11-19 14:11:11,496 - INFO - Stopping container edgebench.judge.ts_checker_differential_v1119.b050b2fc21f3...
+2026-11-19 14:11:11,817 - INFO - Removing container edgebench.judge.ts_checker_differential_v1119.b050b2fc21f3...
+2026-11-19 14:11:11,840 - INFO - Container edgebench.judge.ts_checker_differential_v1119.b050b2fc21f3 removed.

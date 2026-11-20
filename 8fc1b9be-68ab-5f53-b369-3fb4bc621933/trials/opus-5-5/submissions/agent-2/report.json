@@ -1,0 +1,36 @@
+{
+  "task_id": "rustc_mir_bce_v1120",
+  "submission_id": "178773577f25",
+  "total_tests": 99,
+  "passed": 52,
+  "failed": 47,
+  "errors": 0,
+  "pass_rate": 0.5252525252525253,
+  "score": 0.060465,
+  "score_0_100": 6.0465,
+  "timed_out": false,
+  "runtime_seconds": 109.14418053627014,
+  "test_details": [],
+  "valid": true,
+  "summary": "reward 0.0605, 52/99 held-out checks removed, generalization 0.060465, soundness_gate 1.0, regression_gate 1.0",
+  "details": [
+    {
+      "name": "bounds_check_elision",
+      "status": "PASSED",
+      "message": "reward 0.0605, 52/99 held-out checks removed, generalization 0.060465, soundness_gate 1.0, regression_gate 1.0",
+      "score": 0.060465,
+      "weight": null
+    }
+  ],
+  "metrics": {
+    "reward": 0.060465,
+    "generalization": 0.060465,
+    "soundness_gate": 1.0,
+    "regression_gate": 1.0,
+    "checks_removed": 52,
+    "checks_removable": 99,
+    "test_sh_rc": 0,
+    "graded": 1
+  },
+  "submitted_at": 1795116193.2243092
+}

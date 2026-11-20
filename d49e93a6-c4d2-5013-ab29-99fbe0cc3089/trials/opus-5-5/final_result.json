@@ -1,0 +1,20 @@
+{
+  "agent": "claude-code",
+  "task": "ts_checker_differential_v1119",
+  "run_id": "tsdiff-12h-v1119-infinity",
+  "model": "claude-opus-5-5",
+  "best_pass_rate": 0.0,
+  "best_round": "agent-1",
+  "total_rounds": 199,
+  "agent_submissions": 56,
+  "auto_submissions": 143,
+  "timed_out": true,
+  "runtime_seconds": 43199.3005361557,
+  "archive_size_bytes": 8644995,
+  "resume_count": 1,
+  "round_protocol": true,
+  "productive_rounds": 2,
+  "unproductive_rounds": 0,
+  "stalled": false,
+  "best_score": 0.285714
+}

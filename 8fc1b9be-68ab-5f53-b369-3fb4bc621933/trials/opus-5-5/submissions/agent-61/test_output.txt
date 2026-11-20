@@ -1,0 +1,225 @@
+>>>>> Start Test Output
++ echo '>>>>> Start Test Output'
++ cd /app/rust
++ bash /tests/test.sh
++ RC=0
++ echo '===== tests/test.sh exited 0; last 6000 bytes of its log ====='
++ tail -c 6000 /tmp/verifier.log
+===== tests/test.sh exited 0; last 6000 bytes of its log =====
+_defs)
+   Compiling rustc_ast_pretty v0.0.0 (/app/rust/compiler/rustc_ast_pretty)
+   Compiling rustc_errors v0.0.0 (/app/rust/compiler/rustc_errors)
+   Compiling rustc_abi v0.0.0 (/app/rust/compiler/rustc_abi)
+   Compiling rustc_target v0.0.0 (/app/rust/compiler/rustc_target)
+   Compiling rustc_type_ir v0.0.0 (/app/rust/compiler/rustc_type_ir)
+   Compiling rustc_next_trait_solver v0.0.0 (/app/rust/compiler/rustc_next_trait_solver)
+   Compiling rustc_attr_ir v0.0.0 (/app/rust/compiler/rustc_attr_ir)
+   Compiling rustc_session v0.0.0 (/app/rust/compiler/rustc_session)
+   Compiling rustc_hir v0.0.0 (/app/rust/compiler/rustc_hir)
+   Compiling rustc_crate_store v0.0.0 (/app/rust/compiler/rustc_crate_store)
+   Compiling rustc_hir_pretty v0.0.0 (/app/rust/compiler/rustc_hir_pretty)
+   Compiling rustc_middle v0.0.0 (/app/rust/compiler/rustc_middle)
+   Compiling rustc_parse v0.0.0 (/app/rust/compiler/rustc_parse)
+   Compiling rustc_attr_parsing v0.0.0 (/app/rust/compiler/rustc_attr_parsing)
+   Compiling rustc_ast_passes v0.0.0 (/app/rust/compiler/rustc_ast_passes)
+   Compiling rustc_infer v0.0.0 (/app/rust/compiler/rustc_infer)
+   Compiling rustc_transmute v0.0.0 (/app/rust/compiler/rustc_transmute)
+   Compiling rustc_mir_dataflow v0.0.0 (/app/rust/compiler/rustc_mir_dataflow)
+   Compiling rustc_expand v0.0.0 (/app/rust/compiler/rustc_expand)
+   Compiling rustc_symbol_mangling v0.0.0 (/app/rust/compiler/rustc_symbol_mangling)
+   Compiling rustc_ty_walk v0.0.0 (/app/rust/compiler/rustc_ty_walk)
+   Compiling rustc_incremental v0.0.0 (/app/rust/compiler/rustc_incremental)
+   Compiling rustc_privacy v0.0.0 (/app/rust/compiler/rustc_privacy)
+   Compiling rustc_ast_lowering v0.0.0 (/app/rust/compiler/rustc_ast_lowering)
+   Compiling rustc_pattern_analysis v0.0.0 (/app/rust/compiler/rustc_pattern_analysis)
+   Compiling rustc_metadata v0.0.0 (/app/rust/compiler/rustc_metadata)
+   Compiling rustc_trait_selection v0.0.0 (/app/rust/compiler/rustc_trait_selection)
+   Compiling rustc_builtin_macros v0.0.0 (/app/rust/compiler/rustc_builtin_macros)
+   Compiling rustc_monomorphize v0.0.0 (/app/rust/compiler/rustc_monomorphize)
+   Compiling rustc_public_bridge v0.0.0 (/app/rust/compiler/rustc_public_bridge)
+   Compiling rustc_query_impl v0.0.0 (/app/rust/compiler/rustc_query_impl)
+   Compiling rustc_public v0.1.0-preview (/app/rust/compiler/rustc_public)
+   Compiling rustc_resolve v0.0.0 (/app/rust/compiler/rustc_resolve)
+   Compiling rustc_const_eval v0.0.0 (/app/rust/compiler/rustc_const_eval)
+   Compiling rustc_lint v0.0.0 (/app/rust/compiler/rustc_lint)
+   Compiling rustc_sanitizers v0.0.0 (/app/rust/compiler/rustc_sanitizers)
+   Compiling rustc_hir_analysis v0.0.0 (/app/rust/compiler/rustc_hir_analysis)
+   Compiling rustc_borrowck v0.0.0 (/app/rust/compiler/rustc_borrowck)
+   Compiling rustc_traits v0.0.0 (/app/rust/compiler/rustc_traits)
+   Compiling rustc_mir_build v0.0.0 (/app/rust/compiler/rustc_mir_build)
+   Compiling rustc_ty_utils v0.0.0 (/app/rust/compiler/rustc_ty_utils)
+   Compiling rustc_mir_transform v0.0.0 (/app/rust/compiler/rustc_mir_transform)
+   Compiling rustc_passes v0.0.0 (/app/rust/compiler/rustc_passes)
+   Compiling rustc_hir_typeck v0.0.0 (/app/rust/compiler/rustc_hir_typeck)
+   Compiling rustc_codegen_ssa v0.0.0 (/app/rust/compiler/rustc_codegen_ssa)
+   Compiling rustc_codegen_llvm v0.0.0 (/app/rust/compiler/rustc_codegen_llvm)
+   Compiling rustc_interface v0.0.0 (/app/rust/compiler/rustc_interface)
+   Compiling rustc_driver_impl v0.0.0 (/app/rust/compiler/rustc_driver_impl)
+    Finished `release` profile [optimized] target(s) in 1m 09s
+Creating a sysroot for stage1 compiler (use `rustup toolchain link 'name' build/host/stage1`)
+Building stage1 lld-wrapper (stage0 -> stage1, x86_64-unknown-linux-gnu)
+    Finished `release` profile [optimized] target(s) in 0.06s
+Building stage1 library artifacts{alloc, compiler_builtins, core, panic_abort, panic_unwind, proc_macro, rustc-std-workspace-core, std, std_detect, sysroot, test, unwind} (stage1 -> stage1, x86_64-unknown-linux-gnu)
+   Compiling shlex v1.3.0
+   Compiling core v0.0.0 (/app/rust/library/core)
+   Compiling libc v0.2.189
+   Compiling object v0.39.1
+   Compiling std v0.0.0 (/app/rust/library/std)
+   Compiling test v0.0.0 (/app/rust/library/test)
+   Compiling cc v1.2.0
+   Compiling compiler_builtins v0.1.160 (/app/rust/library/compiler-builtins/compiler-builtins)
+   Compiling rustc-std-workspace-core v1.99.0 (/app/rust/library/rustc-std-workspace-core)
+   Compiling alloc v0.0.0 (/app/rust/library/alloc)
+   Compiling adler2 v2.0.1
+   Compiling memchr v2.8.3
+   Compiling rustc-demangle v0.1.28
+   Compiling cfg-if v1.0.4
+   Compiling panic_abort v0.0.0 (/app/rust/library/panic_abort)
+   Compiling rustc-literal-escaper v0.0.8
+   Compiling unwind v0.0.0 (/app/rust/library/unwind)
+   Compiling rustc-std-workspace-alloc v1.99.0 (/app/rust/library/rustc-std-workspace-alloc)
+   Compiling panic_unwind v0.0.0 (/app/rust/library/panic_unwind)
+   Compiling gimli v0.34.0
+   Compiling miniz_oxide v0.9.1
+   Compiling std_detect v0.1.5 (/app/rust/library/std_detect)
+   Compiling hashbrown v0.17.1
+   Compiling addr2line v0.27.1
+   Compiling rustc-std-workspace-std v1.99.0 (/app/rust/library/rustc-std-workspace-std)
+   Compiling proc_macro v0.0.0 (/app/rust/library/proc_macro)
+   Compiling getopts v0.2.24
+   Compiling sysroot v0.0.0 (/app/rust/library/sysroot)
+    Finished `dist` profile [optimized] target(s) in 35.82s
+WARNING: The `change-id` is missing in the `bootstrap.toml`. This means that you will not be able to track the major changes made to the bootstrap configurations.
+NOTE: to silence this warning, add `change-id = 160100` or `change-id = "ignore"` at the top of `bootstrap.toml`
+NOTE: this message was printed twice to make it more likely to be seen
+Build completed successfully in 0:01:47
+{
+  "reward": 0.238372,
+  "generalization": 0.238372,
+  "checks_removed": 79,
+  "checks_removable": 99,
+  "soundness_gate": 1.0,
+  "regression_gate": 1.0
+}
++ printf %s aW1wb3J0IGpzb24sIHBhdGhsaWIsIHN5cwpyYyA9IGludChzeXMuYXJndlsxXSkKCmRlZiBsb2FkKHApOgogICAgdHJ5OgogICAgICAgIHJldHVybiBqc29uLmxvYWRzKHBhdGhsaWIuUGF0aChwKS5yZWFkX3RleHQoKSkKICAgIGV4Y2VwdCBFeGNlcHRpb246CiAgICAgICAgcmV0dXJuIHt9CgpydyA9IGxvYWQoIi9sb2dzL3ZlcmlmaWVyL3Jld2FyZC5qc29uIikKcHJpbnQoIj09PT09IHJld2FyZC5qc29uID09PT09IikKcHJpbnQoanNvbi5kdW1wcyhydywgc29ydF9rZXlzPVRydWUpKQpyZXAgPSBwYXRobGliLlBhdGgoIi9sb2dzL3ZlcmlmaWVyL3JlcG9ydC5qc29uIikKaWYgcmVwLmV4aXN0cygpOgogICAgcHJpbnQoIj09PT09IHJlcG9ydC5qc29uIChmaXJzdCA0MDAwIGNoYXJzKSA9PT09PSIpCiAgICBwcmludChyZXAucmVhZF90ZXh0KClbOjQwMDBdKQoKc2NvcmUgPSBmbG9hdChydy5nZXQoInJld2FyZCIsIDAuMCkgb3IgMC4wKQpyZW1vdmVkID0gaW50KHJ3LmdldCgiY2hlY2tzX3JlbW92ZWQiLCAwKSBvciAwKQpyZW1vdmFibGUgPSBpbnQocncuZ2V0KCJjaGVja3NfcmVtb3ZhYmxlIiwgMCkgb3IgMCkKIyBncmFkZS5weSB3cml0ZXMgdGhlc2UgdHdvIGtleXMgb25seSBhZnRlciBhIGNvbXBsZXRlIHBhc3M7IHRlc3Quc2gncyBmYWlsLWNsb3NlZAojIGZsb29yIGlzIHsicmV3YXJkIjogMC4wfSBhbG9uZS4gU28gdGhlaXIgcHJlc2VuY2UsIHBsdXMgYSB6ZXJvIGV4aXQsIGlzIHdoYXQKIyBzZXBhcmF0ZXMgYSBtZWFzdXJlZCBzY29yZSBmcm9tIGEgdmVyaWZpZXIgdGhhdCBuZXZlciBtZWFzdXJlZCBhbnl0aGluZy4KZ3JhZGVkID0gcmMgPT0gMCBhbmQgImdlbmVyYWxpemF0aW9uIiBpbiBydyBhbmQgInNvdW5kbmVzc19nYXRlIiBpbiBydwp0b3RhbCA9IHJlbW92YWJsZSBvciAxCgppZiBncmFkZWQ6CiAgICBzdW1tYXJ5ID0gInJld2FyZCAlLjRmLCAlZC8lZCBoZWxkLW91dCBjaGVja3MgcmVtb3ZlZCwgZ2VuZXJhbGl6YXRpb24gJXMsIHNvdW5kbmVzc19nYXRlICVzLCByZWdyZXNzaW9uX2dhdGUgJXMiICUgKAogICAgICAgIHNjb3JlLCByZW1vdmVkLCByZW1vdmFibGUsIHJ3LmdldCgiZ2VuZXJhbGl6YXRpb24iLCAiPyIpLAogICAgICAgIHJ3LmdldCgic291bmRuZXNzX2dhdGUiLCAiPyIpLCBydy5nZXQoInJlZ3Jlc3Npb25fZ2F0ZSIsICI/IikpCmVsc2U6CiAgICBzdW1tYXJ5ID0gInZlcmlmaWVyIGRpZCBub3QgY29tcGxldGUgYSBncmFkaW5nIHBhc3MgKHRlc3Quc2ggcmM9JWQsIHJld2FyZC5qc29uIGtleXM9JXMpOyB0aGlzIDAuMCBpcyBub3QgYSBtZWFzdXJlbWVudCBvZiB0aGUgc3VibWlzc2lvbiIgJSAoCiAgICAgICAgcmMsIHNvcnRlZChydykpCgpyZXMgPSB7CiAgICAidmFsaWQiOiBib29sKGdyYWRlZCksCiAgICAic2NvcmUiOiBzY29yZSBpZiBncmFkZWQgZWxzZSAwLjAsCiAgICAicGFzc19yYXRlIjogKHJlbW92ZWQgLyB0b3RhbCkgaWYgZ3JhZGVkIGVsc2UgMC4wLAogICAgInRvdGFsX3Rlc3RzIjogcmVtb3ZhYmxlLAogICAgInBhc3NlZCI6IHJlbW92ZWQgaWYgZ3JhZGVkIGVsc2UgMCwKICAgICJmYWlsZWQiOiBtYXgocmVtb3ZhYmxlIC0gcmVtb3ZlZCwgMCkgaWYgZ3JhZGVkIGVsc2UgcmVtb3ZhYmxlLAogICAgImVycm9ycyI6IDAgaWYgZ3JhZGVkIGVsc2UgMSwKICAgICJzdW1tYXJ5Ijogc3VtbWFyeSwKICAgICJkZXRhaWxzIjogW3sKICAgICAgICAibmFtZSI6ICJib3VuZHNfY2hlY2tfZWxpc2lvbiIsCiAgICAgICAgInN0YXR1cyI6ICJQQVNTRUQiIGlmIChncmFkZWQgYW5kIHNjb3JlID4gMC4wKSBlbHNlICJGQUlMRUQiLAogICAgICAgICJzY29yZSI6IHNjb3JlIGlmIGdyYWRlZCBlbHNlIDAuMCwKICAgICAgICAibWVzc2FnZSI6IHN1bW1hcnksCiAgICB9XSwKICAgICJtZXRyaWNzIjogewogICAgICAgICJyZXdhcmQiOiBzY29yZSwKICAgICAgICAiZ2VuZXJhbGl6YXRpb24iOiBydy5nZXQoImdlbmVyYWxpemF0aW9uIiwgMC4wKSwKICAgICAgICAic291bmRuZXNzX2dhdGUiOiBydy5nZXQoInNvdW5kbmVzc19nYXRlIiwgMC4wKSwKICAgICAgICAicmVncmVzc2lvbl9nYXRlIjogcncuZ2V0KCJyZWdyZXNzaW9uX2dhdGUiLCAwLjApLAogICAgICAgICJjaGVja3NfcmVtb3ZlZCI6IHJlbW92ZWQsCiAgICAgICAgImNoZWNrc19yZW1vdmFibGUiOiByZW1vdmFibGUsCiAgICAgICAgInRlc3Rfc2hfcmMiOiByYywKICAgICAgICAiZ3JhZGVkIjogaW50KGJvb2woZ3JhZGVkKSksCiAgICB9LAp9CnByaW50KCI+Pj4+PiBTdGFydCBTdHJ1Y3R1cmVkIFJlc3VsdCIpCnByaW50KGpzb24uZHVtcHMocmVzLCBlbnN1cmVfYXNjaWk9RmFsc2UpKQpwcmludCgiPj4+Pj4gRW5kIFN0cnVjdHVyZWQgUmVzdWx0IikK
++ base64 -d
++ python3 /tmp/sforge_score.py 0
+===== reward.json =====
+{"checks_removable": 99, "checks_removed": 79, "generalization": 0.238372, "regression_gate": 1.0, "reward": 0.238372, "soundness_gate": 1.0}
+===== report.json (first 4000 chars) =====
+{
+  "checks_removable": 99,
+  "checks_removed": 79,
+  "class_mass": {
+    "max_bound": 0.45,
+    "solved": 0.1,
+    "summary": 0.45
+  },
+  "counts": {
+    "must_keep": {
+      "call_clobbers_the_index.rs": 1,
+      "clamp_without_width_guard.rs": 1,
+      "equal_lengths__clamp_len2__i.rs": 1,
+      "equal_lengths__lenminus2__i.rs": 1,
+      "equal_lengths__minus1__i.rs": 1,
+      "equal_lengths__plus1__i.rs": 1,
+      "equal_lengths__plus2__i.rs": 1,
+      "forward_loop__clamp_len2__i.rs": 1,
+      "forward_loop__lenminus2__i.rs": 1,
+      "forward_loop__minus1__i.rs": 1,
+      "forward_loop__plus1__i.rs": 1,
+      "forward_loop__plus2__i.rs": 1,
+      "guard_does_not_dominate.rs": 1,
+      "guard_then_call_clobber__clamp_len2__i.rs": 1,
+      "guard_then_call_clobber__clamp_len2__j.rs": 1,
+      "guard_then_call_clobber__direct__i.rs": 1,
+      "guard_then_call_clobber__direct__j.rs": 1,
+      "guard_then_call_clobber__half__i.rs": 1,
+      "guard_then_call_clobber__lenminus2__i.rs": 1,
+      "guard_then_call_clobber__lenminus2__j.rs": 1,
+      "guard_then_call_clobber__max_len1__i.rs": 1,
+      "guard_then_call_clobber__max_len1__j.rs": 1,
+      "guard_then_call_clobber__min_other__i.rs": 1,
+      "guard_then_call_clobber__minus1__i.rs": 1,
+      "guard_then_call_clobber__plus1__i.rs": 1,
+      "guard_then_call_clobber__plus1__j.rs": 1,
+      "guard_then_call_clobber__plus2__i.rs": 1,
+      "guard_then_call_clobber__plus2__j.rs": 1,
+      "if_le_len__clamp_len2__i.rs": 1,
+      "if_le_len__clamp_len2__j.rs": 1,
+      "if_le_len__direct__i.rs": 1,
+      "if_le_len__direct__j.rs": 1,
+      "if_le_len__half__i.rs": 1,
+      "if_le_len__half__j.rs": 1,
+      "if_le_len__lenminus1__i.rs": 1,
+      "if_le_len__lenminus1__j.rs": 1,
+      "if_le_len__lenminus2__i.rs": 1,
+      "if_le_len__lenminus2__j.rs": 1,
+      "if_le_len__max_len1__i.rs": 1,
+      "if_le_len__max_len1__j.rs": 1,
+      "if_le_len__min_len1__i.rs": 1,
+      "if_le_len__min_len1__j.rs": 1,
+      "if_le_len__min_other__i.rs": 1,
+      "if_le_len__min_other__j.rs": 1,
+      "if_le_len__minus1__i.rs": 1,
+      "if_le_len__minus1__j.rs": 1,
+      "if_le_len__plus1__i.rs": 1,
+      "if_le_len__plus1__j.rs": 1,
+      "if_le_len__plus2__i.rs": 1,
+      "if_le_len__plus2__j.rs": 1,
+      "if_le_len__sat_sub1__i.rs": 1,
+      "if_le_len__sat_sub1__j.rs": 1,
+      "if_le_len__sat_sub3__i.rs": 1,
+      "if_le_len__sat_sub3__j.rs": 1,
+      "if_lt_len__clamp_len2__i.rs": 1,
+      "if_lt_len__clamp_len2__j.rs": 1,
+      "if_lt_len__lenminus2__i.rs": 1,
+      "if_lt_len__lenminus2__j.rs": 1,
+      "if_lt_len__minus1__i.rs": 1,
+      "if_lt_len__minus1__j.rs": 1,
+      "if_lt_len__plus1__i.rs": 1,
+      "if_lt_len__plus1__j.rs": 1,
+      "if_lt_len__plus2__i.rs": 1,
+      "if_lt_len__plus2__j.rs": 1,
+      "inclusive_range_overruns.rs": 1,
+      "len_ge_4__direct__i.rs": 1,
+      "len_ge_4__direct__j.rs": 1,
+      "len_ge_4__half__i.rs": 1,
+      "len_ge_4__half__j.rs": 1,
+      "len_ge_4__max_len1__i.rs": 1,
+      "len_ge_4__max_len1__j.rs": 1,
+      "len_ge_4__min_other__i.rs": 1,
+      "len_ge_4__min_other__j.rs": 1,
+      "len_ge_4__minus1__i.rs": 1,
+      "len_ge_4__minus1__j.rs": 1,
+      "len_ge_4__plus1__i.rs": 1,
+      "len_ge_4__plus1__j.rs": 1,
+      "len_ge_4__plus2__i.rs": 1,
+      "len_ge_4__plus2__j.rs": 1,
+      "len_shrinks_inside_loop.rs": 1,
+      "loop_to_len_minus_1__minus1__i.rs": 1,
+      "loop_to_len_minus_1__plus2__i.rs": 1,
+      "max_does_not_bound_above.rs": 1,
+      "min_without_empty_guard.rs": 1,
+      "nonempty__clamp_len2__i.rs": 1,
+      "nonempty__clamp_len2__j.rs": 1,
+      "nonempty__direct__i.rs": 1,
+      "nonempty__direct__j.rs": 1,
+      "nonempty__half__i.rs": 1,
+      "nonempty__half__j.rs": 1,
+      "nonempty__lenminus2__i.rs": 1,
+      "nonempty__lenminus2__j.rs": 1,
+      "nonempty__max_len1__i.rs": 1,
+      "nonempty__max_len1__j.rs": 1,
+      "nonempty__min_other__i.rs": 1,
+      "nonempty__min_other__j.rs": 1,
+      "nonempty__min
+>>>>> Start Structured Result
+{"valid": true, "score": 0.238372, "pass_rate": 0.797979797979798, "total_tests": 99, "passed": 79, "failed": 20, "errors": 0, "summary": "reward 0.2384, 79/99 held-out checks removed, generalization 0.238372, soundness_gate 1.0, regression_gate 1.0", "details": [{"name": "bounds_check_elision", "status": "PASSED", "score": 0.238372, "message": "reward 0.2384, 79/99 held-out checks removed, generalization 0.238372, soundness_gate 1.0, regression_gate 1.0"}], "metrics": {"reward": 0.238372, "generalization": 0.238372, "soundness_gate": 1.0, "regression_gate": 1.0, "checks_removed": 79, "checks_removable": 99, "test_sh_rc": 0, "graded": 1}}
+>>>>> End Structured Result
++ EXIT_CODE=0
++ echo '>>>>> End Test Output'
++ echo 'Exit code: 0'
++ exit 0
+>>>>> End Test Output
+Exit code: 0

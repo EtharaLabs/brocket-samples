@@ -1,0 +1,118 @@
+{
+ "schema": "brocket.forge-platform-probe/v1",
+ "host": "linux/arm64 container on Docker Desktop 29.3.1, Apple M-series host",
+ "verifier_image": {
+  "built": true,
+  "tag": "brocket-solverdiff-verifier:build",
+  "size_bytes_reported": "7.98GB",
+  "toolchains": 11,
+  "rebuild_with_corrected_set": "failed: input/output error writing a toolchain layer, host disk exhausted"
+ },
+ "toolchain_commits_match_macos": true,
+ "toolchain_commit_samples": {
+  "nightly-2026-07-28": "09ee43b2d",
+  "nightly-2026-08-14": "ba28ff76f",
+  "nightly-2026-08-16": "67854e511",
+  "nightly-2026-09-22": "1303417c4"
+ },
+ "oracle_on_linux": [
+  {
+   "toolchain": "nightly-2026-08-14",
+   "witnesses": 39,
+   "families": {
+    "cycle_auto": 16,
+    "cycle_proj": 4,
+    "coherence_hrtb": 4,
+    "coherence_neg": 4,
+    "canon_region": 4,
+    "opaque_implied": 3,
+    "hrtb_object": 4
+   },
+   "verdict": "matches macOS; W2 and W3 families present"
+  },
+  {
+   "toolchain": "nightly-2026-09-10",
+   "witnesses": 32,
+   "families": {
+    "cycle_auto": 16,
+    "cycle_proj": 4,
+    "coherence_hrtb": 4,
+    "coherence_neg": 4,
+    "hrtb_object": 4
+   },
+   "verdict": "matches macOS; W6 family present"
+  },
+  {
+   "toolchain": "nightly-2026-10-01",
+   "witnesses": 0,
+   "verdict": "the nightly-2026-10-01 aarch64-unknown-linux-gnu build dies with SIGSEGV on the cycle programs under BOTH solver modes, so no split is observable. Confirmed with RUST_MIN_STACK at 16MB, 128MB and 256MB and with a 128MB stack ulimit: the crash is not a stack limit."
+  },
+  {
+   "toolchain": "nightly-2026-09-29",
+   "witnesses": 20,
+   "verdict": "no crash"
+  },
+  {
+   "toolchain": "nightly-2026-09-30",
+   "witnesses": 20,
+   "verdict": "no crash; adopted as W1 pre-fix"
+  }
+ ],
+ "actions_taken": [
+  "W1 pre-fix toolchain moved from nightly-2026-10-01 to nightly-2026-09-30, which git ancestry confirms still lacks fix 77efc48052 while nightly-2026-10-02 contains it",
+  "the outcome classifier in both the reference tester and the grader now maps any exit other than 0, 1 and 101 to ice rather than reject, because calling a SIGSEGV a rejection silently erased this split",
+  "instruction.md states that a compiler failure which is not a rejection counts as ice"
+ ],
+ "unresolved": [
+  "the corrected 11-toolchain verifier image was never built to completion on this host: the build exhausted the disk and took the Docker daemon down with it",
+  "RESOLVED: the end-to-end grader run inside the verifier image has since been measured on linux/amd64 and returns reward 1.0, caught 7 of 7, 0 unreproducible; see amd64_status",
+  "W7 is caught on amd64 but by only 4 witnesses, against 20 to 41 for every other window. It is the narrowest window in the set and the one most exposed if its witness family ever stops reproducing."
+ ],
+ "coverage_by_window": {
+  "note": "what platform each graded window's evidence actually comes from. The oracle_on_linux entries above confirm the generator families emit programs on linux/arm64 and that toolchain commits match macOS; they are not per-window attributable-witness runs. linux_amd64 entries come from running the real grader against the oracle inside the amd64 verifier image on a 16-core x86_64 host.",
+  "W1": {
+   "darwin_arm64": true,
+   "linux_arm64": "pre-fix toolchain adoption verified",
+   "linux_amd64": "validated: caught, 20 witnesses, 0 unreproducible"
+  },
+  "W2": {
+   "darwin_arm64": true,
+   "linux_arm64": "family present",
+   "linux_amd64": "validated: caught, 39 witnesses, 0 unreproducible"
+  },
+  "W3": {
+   "darwin_arm64": true,
+   "linux_arm64": "family present",
+   "linux_amd64": "validated: caught, 35 witnesses, 0 unreproducible"
+  },
+  "W4": {
+   "darwin_arm64": true,
+   "linux_arm64": false,
+   "linux_amd64": "validated: caught, 28 witnesses, 0 unreproducible"
+  },
+  "W5": {
+   "darwin_arm64": true,
+   "linux_arm64": false,
+   "linux_amd64": "validated: caught, 41 witnesses, 0 unreproducible"
+  },
+  "W6": {
+   "darwin_arm64": true,
+   "linux_arm64": "family present",
+   "linux_amd64": "validated: caught, 32 witnesses, 0 unreproducible"
+  },
+  "W7": {
+   "darwin_arm64": "4 attributable witnesses, family coherence_hrtb, on nightly-2026-10-05",
+   "linux_arm64": false,
+   "linux_amd64": "validated: caught, 4 witnesses, 0 unreproducible",
+    "added": "amendment 3; originally darwin-only, now also covered by the linux_amd64 entry above and by a linux/amd64 oracle sweep that catches it with 4 witnesses in family coherence_hrtb"
+  }
+ },
+ "amd64_status": "CLOSED by measurement. The real grader run against the oracle inside the amd64 verifier image returns reward 1.0, validity_gate 1, caught 7 of 7 across all 5 mechanisms, 20 witnesses read, 20 credited and 0 unreproducible, with recall, precision, attribution and minimality each 1.0. Every graded window holds on linux/amd64. The witness count is 20 because the reference tester reports at most three per window under the precision allowance; an earlier record of 199 predates that selection step and could not have scored 1.0 under the shipped precision rule.",
+ "amd64_verifier_image": {
+  "tag": "brocket-verifier:592f3a00",
+  "image_id": "sha256:a38429d10e8a619d277ad82862eada6e598dc4bd150d0a6904e5c3dacffdf108",
+  "size": "8.26GB",
+  "toolchains": 13,
+  "built_on": "linux/amd64, 16 cores, routed @ec2 target"
+ }
+}
